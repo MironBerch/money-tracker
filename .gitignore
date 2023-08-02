@@ -1,0 +1,27 @@
+# IDE files
+
+.idea/*
+.vscode/*
+
+
+# environment #
+
+.venv
+.env
+
+
+# Backend #
+
+# base
+*.pyc
+*.pyo
+*.sqlite3
+*.log
+*.pytest_cache
+__pycache__/
+
+# static
+zadacnhic/static/*
+
+# media
+zadacnhic/media/*
