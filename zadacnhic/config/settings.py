@@ -86,6 +86,11 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+# Authentication
+
+AUTH_USER_MODEL = 'accounts.User'
+
+
 # Internationalization
 
 LANGUAGE_CODE = 'ru-ru'
