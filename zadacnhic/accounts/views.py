@@ -1,6 +1,8 @@
 from django.contrib.auth.views import (
     LoginView,
     LogoutView,
+    PasswordChangeDoneView,
+    PasswordChangeView,
     PasswordResetCompleteView,
     PasswordResetConfirmView,
     PasswordResetDoneView,
@@ -89,3 +91,16 @@ class PasswordResetCompleteView(PasswordResetCompleteView):
     """View for show that resetting a password is complete."""
 
     template_name = 'registration/password_reset_complete.html'
+
+
+class PasswordChangeView(PasswordChangeView):
+    """View for changing a password."""
+
+    template_name = 'registration/password_change.html'
+    success_url = reverse_lazy('password_change_done')
+
+
+class PasswordChangeDoneView(PasswordChangeDoneView):
+    """View for show that changing a password is complete."""
+
+    template_name = 'registration/password_change_done.html'
