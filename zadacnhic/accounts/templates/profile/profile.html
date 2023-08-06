@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+{{ profile_owner.full_name }}
+Описание: {{ profile_owner.profile.description }}
+День рождения: {{ profile_owner.profile.date_of_birth }}
+{% if profile_owner.profile.gender == "M" %}
+    Пол: Мужской
+{% elif profile_owner.profile.gender == "F" %}
+    Пол: Женский
+{% endif %}
+Последний вход: {{ profile_owner.last_login }}
+На сайте с: {{ profile_owner.date_joined }}
+
+{% endblock %}

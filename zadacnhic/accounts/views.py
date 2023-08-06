@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import (
     LoginView,
     LogoutView,
@@ -16,6 +17,7 @@ from django.views.generic.base import TemplateResponseMixin
 
 from accounts.forms import SignUpForm
 from accounts.mixins import AnonymousUserRequiredMixin
+from accounts.services import get_user_by_pk
 
 
 class SignUpView(
@@ -104,3 +106,20 @@ class PasswordChangeDoneView(PasswordChangeDoneView):
     """View for show that changing a password is complete."""
 
     template_name = 'registration/password_change_done.html'
+
+
+class ProfileView(
+    LoginRequiredMixin,
+    TemplateResponseMixin,
+    View,
+):
+    """User profile view."""
+
+    template_name = 'profile/profile.html'
+
+    def get(self, request: HttpRequest, pk: int, *args, **kwargs):
+        return self.render_to_response(
+            context={
+                'profile_owner': get_user_by_pk(pk=pk),
+            },
+        )

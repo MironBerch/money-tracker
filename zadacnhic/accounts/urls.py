@@ -7,6 +7,7 @@ from accounts.views import (
     PasswordResetConfirmView,
     PasswordResetDoneView,
     PasswordResetView,
+    ProfileView,
     SignInView,
     SignOutView,
     SignUpView,
@@ -61,5 +62,12 @@ urlpatterns = [
         route='reset/done/',
         view=PasswordResetCompleteView.as_view(),
         name='password_reset_complete',
+    ),
+
+    # profile urls
+    path(
+        route='profile/<int:pk>/',
+        view=ProfileView.as_view(),
+        name='profile_view',
     ),
 ]

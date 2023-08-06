@@ -71,9 +71,9 @@ def get_default_profile_image() -> str:
 
 
 class ProfileGenderChoices(models.TextChoices):
-    MALE = 'M', 'Мальчик'
-    FEMALE = 'F', 'Девочка'
-    OTHER = 'O', ''
+    MALE = 'M', 'Мужской'
+    FEMALE = 'F', 'Женский'
+    OTHER = 'N', 'Не указывать'
 
 
 class Profile(models.Model):
