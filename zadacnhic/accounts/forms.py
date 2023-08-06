@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 
 from accounts.models import User
 
@@ -21,3 +21,15 @@ class SignUpForm(UserCreationForm):
         self.fields['email'].label = 'Email'
         self.fields['first_name'].label = 'Имя'
         self.fields['last_name'].label = 'Фамилия'
+
+
+class AdminUserChangeForm(UserChangeForm):
+    """Form for editing `User` (used on the admin panel)."""
+
+    class Meta:
+        model = User
+        fields = (
+            'email',
+            'first_name',
+            'last_name',
+        )
