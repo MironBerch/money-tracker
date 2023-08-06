@@ -65,6 +65,13 @@ class UserModelTests(TestCase):
         self.assertEqual(last_name_field.verbose_name, _('last name'))
         self.assertEqual(last_name_field.max_length, 40)
 
+    def test_date_joined_field_params(self):
+        """Test that date_joined field has all required parameters."""
+        date_joined_field = User._meta.get_field('date_joined')
+
+        self.assertEqual(date_joined_field.verbose_name, _('date joined'))
+        self.assertTrue(date_joined_field.auto_now_add)
+
     def test_last_login_field_params(self):
         """Test that last_login field has all required parameters."""
         last_login_field = User._meta.get_field('last_login')

@@ -23,6 +23,15 @@ class User(AbstractBaseUser, PermissionsMixin):
         max_length=40,
     )
 
+    date_joined = models.DateTimeField(
+        verbose_name=_('date joined'),
+        auto_now_add=True,
+    )
+    last_login = models.DateTimeField(
+        verbose_name=_('last login'),
+        auto_now=True,
+    )
+
     is_active = models.BooleanField(
         verbose_name=_('active'),
         default=True,
