@@ -1,0 +1,53 @@
+name: Django test
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_HOST: localhost
+      POSTGRES_DB: postgres
+      POSTGRES_PORT: 5432
+      DJANGO_SECRET_KEY: test-key-not-good
+    services:
+      postgres_main:
+        image: postgres:14-alpine
+        env:
+          POSTGRES_USER: ${{ env.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ env.POSTGRES_DB }}
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready 
+          --health-interval 10s 
+          --health-timeout 5s 
+          --health-retries 5
+    strategy:
+      matrix:
+        python-version: ["3.11"]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install requirements
+        run: |
+          pip install -r requirements.txt
+      - name: Run Tests
+        env:
+          DEBUG: "False"
+          DJANGO_SECRET_KEY: ${{ env.DJANGO_SECRET_KEY }}
+          POSTGRES_USER: ${{ env.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+          POSTGRES_HOST: ${{ env.POSTGRES_HOST }}
+          POSTGRES_DB: ${{ env.POSTGRES_DB }}
+          POSTGRES_PORT: ${{ env.POSTGRES_PORT }}
+        run: |
+          cd zadacnhic
+          python manage.py test
