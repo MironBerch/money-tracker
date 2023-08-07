@@ -20,21 +20,6 @@ class UserModelTests(TestCase):
             password='password',
         )
 
-        user2 = User.objects.create_user(
-            email='user2@gmail.com',
-            first_name='Peter',
-            last_name='Williams',
-            password='password',
-        )
-        user2.save()
-
-        User.objects.create_superuser(
-            email='user3@gmail.com',
-            first_name='Frank',
-            last_name='Smith',
-            password='password',
-        )
-
     def test_model_verbose_name_single(self):
         """Test that model verbose name is set correctly."""
         self.assertEqual(User._meta.verbose_name, _('user'))
