@@ -3,12 +3,14 @@
 ## Technologies:
 - Django 4
 - Postgresql
+- Redis
 
 
 ## Configuration
 Docker containers:
  1. server
  2. db
+ 3. redis
 
 docker-compose files:
  1. `docker-compose-local.yml` - for local development
