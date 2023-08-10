@@ -18,6 +18,8 @@ To run docker containers you have to create a `.env` file in the root directory.
 ### Example of `.env` file:
 
 ```dotenv
+ENV=.env
+
 # Project
 SECRET_KEY=
 DEBUG=
