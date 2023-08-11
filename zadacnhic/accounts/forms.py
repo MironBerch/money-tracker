@@ -1,6 +1,7 @@
-from django.contrib.auth.forms import UserChangeForm, UserCreationForm
+from django.contrib.auth.forms import PasswordResetForm, UserChangeForm, UserCreationForm
 
 from accounts.models import User
+from accounts.tasks import send_password_reset_link
 
 
 class SignUpForm(UserCreationForm):
@@ -32,4 +33,31 @@ class AdminUserChangeForm(UserChangeForm):
             'email',
             'first_name',
             'last_name',
+        )
+
+
+class PasswordResetForm(PasswordResetForm):
+    """
+    Custom password reset form.
+
+    Send emails using Celery.
+    """
+
+    def send_mail(
+            self,
+            subject_template_name,
+            email_template_name,
+            context,
+            from_email,
+            to_email,
+            html_email_template_name=None,
+    ):
+        context['user'] = context['user'].pk
+        send_password_reset_link(
+            subject_template_name=subject_template_name,
+            email_template_name=email_template_name,
+            context=context,
+            from_email=from_email,
+            to_email=to_email,
+            html_email_template_name=html_email_template_name,
         )
