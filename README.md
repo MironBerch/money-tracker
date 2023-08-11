@@ -4,6 +4,7 @@
 - Django 4
 - Postgresql
 - Redis
+- Celery
 
 
 ## Configuration
@@ -11,6 +12,7 @@ Docker containers:
  1. server
  2. db
  3. redis
+ 4. celery
 
 docker-compose files:
  1. `docker-compose-local.yml` - for local development
@@ -38,6 +40,9 @@ POSTGRES_USER=
 POSTGRES_PASSWORD=
 POSTGRES_HOST=<db>
 POSTGRES_PORT=
+
+# Celery
+CELERY_BROKER_URL=<redis://redis:6379>
 
 ```
 

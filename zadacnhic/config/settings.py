@@ -7,7 +7,7 @@ SECRET_KEY = environ.get('SECRET_KEY', default='not-secure-key')
 
 DEBUG = environ.get('DEBUG', default=True)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -122,3 +122,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_PASSWORD = environ.get('EMAIL_HOST_PASSWORD')
+
+# Celery
+
+CELERY_BROKER_URL = environ.get('CELERY_BROKER_URL')

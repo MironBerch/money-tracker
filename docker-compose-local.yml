@@ -40,5 +40,21 @@ services:
     ports:
       - "6380:6379"
 
+  celery:
+    restart: always
+    env_file:
+      - ${ENV}
+    build: .
+    volumes:
+      - .:/app
+    command: >
+      sh -c "cd /app/zadacnhic/
+      && celery -A config worker -l info"
+    links:
+      - redis
+    depends_on:
+      - redis
+      - server
+
 volumes:
   postgres_volume:
