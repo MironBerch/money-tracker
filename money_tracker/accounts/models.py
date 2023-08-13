@@ -113,3 +113,37 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'Profile for {self.user}'
+
+
+class SettingsСurrencyChoices(models.TextChoices):
+    RUB = 'R', 'Ruble'
+    USD = 'D', 'Dollar'
+    EUR = 'E', 'Euro'
+
+    @classmethod
+    def get_default(cls):
+        return cls.RUB
+
+
+class Settings(models.Model):
+    """Settings for `User`."""
+
+    currency = models.CharField(
+        verbose_name=_('gender'),
+        blank=True,
+        max_length=2,
+        choices=SettingsСurrencyChoices.choices,
+        default=SettingsСurrencyChoices.get_default,
+    )
+    user: User = models.OneToOneField(
+        User,
+        related_name=_('settings'),
+        on_delete=models.CASCADE,
+    )
+
+    class Meta:
+        verbose_name = _('settings')
+        verbose_name_plural = _('settings')
+
+    def __str__(self):
+        return f'Setting for {self.user}'
