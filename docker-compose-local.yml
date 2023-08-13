@@ -5,7 +5,7 @@ services:
     restart: always
     build: .
     command: >
-      sh -c "cd /app/zadacnhic/
+      sh -c "cd /app/money_tracker/
       && python manage.py migrate --noinput
       && python manage.py runserver 0.0.0.0:8000"
     expose:
@@ -48,7 +48,7 @@ services:
     volumes:
       - .:/app
     command: >
-      sh -c "cd /app/zadacnhic/
+      sh -c "cd /app/money_tracker/
       && celery -A config worker -l info"
     links:
       - redis

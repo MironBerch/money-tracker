@@ -1,4 +1,4 @@
-# Zadacnhic
+# Money-tracker
 
 ## Technologies:
 - Django 4

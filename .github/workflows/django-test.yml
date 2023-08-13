@@ -48,5 +48,5 @@ jobs:
           POSTGRES_DB: ${{ env.POSTGRES_DB }}
           POSTGRES_PORT: ${{ env.POSTGRES_PORT }}
         run: |
-          cd zadacnhic
+          cd money_tracker
           python manage.py test

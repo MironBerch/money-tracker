@@ -20,6 +20,6 @@ jobs:
           pip install isort flake8 flake8-django flake8-multiline-containers flake8-docstrings flake8-quotes pep8-naming
       - name: Lint with flake8
         run: |
-          flake8 --extend-ignore F401 --exclude migrations --max-line-length 100 zadacnhic/
+          flake8 --extend-ignore F401 --exclude migrations --max-line-length 100 money_tracker/
       - name: Lint with isort
         run: isort -qc .
