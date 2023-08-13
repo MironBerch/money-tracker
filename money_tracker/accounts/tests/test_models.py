@@ -4,6 +4,8 @@ from django.utils.translation import gettext_lazy as _
 from accounts.models import (
     Profile,
     ProfileGenderChoices,
+    Settings,
+    SettingsСurrencyChoices,
     User,
     get_default_profile_image,
     get_profile_image_upload_path,
@@ -183,3 +185,36 @@ class ProfileModelTests(TestCase):
         """Test that Profile object name is set up properly."""
         test_profile: Profile = Profile.objects.get(user=User.objects.first())
         self.assertEqual(str(test_profile), f'Profile for {test_profile.user}')
+
+
+class SettingsModelTests(TestCase):
+
+    def setUp(self) -> None:
+        User.objects.create_user(
+            email='user1@gmail.com',
+            first_name='John',
+            last_name='Doe',
+            password='password',
+        )
+
+    def test_model_verbose_name_single(self):
+        """Test that model verbose name is set correctly."""
+        self.assertEqual(Settings._meta.verbose_name, _('settings'))
+
+    def test_model_verbose_name_plural(self):
+        """Test that model verbose name (in plural) is set correctly."""
+        self.assertEqual(Settings._meta.verbose_name_plural, _('settings'))
+
+    def test_currency_field_params(self):
+        """Test that currency field has all required parameters."""
+        currency_field = Settings._meta.get_field('currency')
+
+        self.assertEqual(currency_field.verbose_name, 'currency')
+        self.assertTrue(currency_field.blank)
+        self.assertEqual(currency_field.max_length, 2)
+        self.assertEqual(currency_field.choices, SettingsСurrencyChoices.choices)
+
+    def test_object_name_has_user_object_name(self):
+        """Test that Settings object name is set up properly."""
+        test_settings: Settings = Settings.objects.get(user=User.objects.first())
+        self.assertEqual(str(test_settings), f'Settings for {test_settings.user}')

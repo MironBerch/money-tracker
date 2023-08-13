@@ -129,7 +129,7 @@ class Settings(models.Model):
     """Settings for `User`."""
 
     currency = models.CharField(
-        verbose_name=_('gender'),
+        verbose_name=_('currency'),
         blank=True,
         max_length=2,
         choices=SettingsСurrencyChoices.choices,
@@ -146,4 +146,4 @@ class Settings(models.Model):
         verbose_name_plural = _('settings')
 
     def __str__(self):
-        return f'Setting for {self.user}'
+        return f'Settings for {self.user}'

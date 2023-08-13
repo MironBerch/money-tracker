@@ -73,7 +73,7 @@ class Expense(models.Model):
     )
 
     class Meta:
-        ordering = ('expense_date', )
+        ordering = ('-expense_date', )
         verbose_name = _('expense')
         verbose_name_plural = _('expenses')
 
