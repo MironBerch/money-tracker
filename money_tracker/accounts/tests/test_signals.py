@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from accounts.models import Profile, User
+from accounts.models import Profile, Settings, User
 
 
 class AccountsSignalsTests(TestCase):
@@ -41,3 +41,20 @@ class AccountsSignalsTests(TestCase):
     def test_create_superuser_profile_signal(self):
         """Test that create_user_profile signal works with new superusers."""
         self.assertTrue(Profile.objects.get(user=User.objects.get(email='superuser@gmail.com')))
+
+    def test_user_settings_attribute(self):
+        """Test that user model has settings attribute."""
+        self.assertTrue(hasattr(User.objects.first(), 'settings'))
+        self.assertEqual(User.objects.first().settings.user, User.objects.first())
+
+    def test_create_user_settings_signal(self):
+        """Test that create_user_settings signal works with new users."""
+        self.assertTrue(Settings.objects.get(user=User.objects.get(email='user@gmail.com')))
+
+    def test_create_staffuser_settings_signal(self):
+        """Test that create_user_settings signal works with new staffuser."""
+        self.assertTrue(Settings.objects.get(user=User.objects.get(email='staffuser@gmail.com')))
+
+    def test_create_superuser_settings_signal(self):
+        """Test that create_user_settings signal works with new superusers."""
+        self.assertTrue(Settings.objects.get(user=User.objects.get(email='superuser@gmail.com')))
