@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.utils.safestring import mark_safe
 
 from accounts.forms import AdminUserChangeForm, SignUpForm
-from accounts.models import Profile, User
+from accounts.models import Profile, Settings, User
 
 
 @admin.register(User)
@@ -124,3 +124,13 @@ class ProfileAdmin(admin.ModelAdmin):
         )
 
     get_user_admin_link.short_description = 'Ссылка на пользователя в панели администратора'
+
+
+@admin.register(Settings)
+class SettingsAdmin(admin.ModelAdmin):
+    list_display = (
+        '__str__',
+        'user',
+        'currency',
+    )
+    search_fields = ('user__email', )
