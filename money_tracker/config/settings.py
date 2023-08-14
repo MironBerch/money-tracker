@@ -43,6 +43,7 @@ TEMPLATES = [
         'DIRS': [
             BASE_DIR / 'templates',
             BASE_DIR / 'accounts/templates',
+            BASE_DIR / 'expenses/templates',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -110,6 +111,10 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = 'static/'
+
+# Login redirect urls
+
+LOGIN_REDIRECT_URL = 'expenses_list'
 
 # Default primary key field type
 
