@@ -114,6 +114,7 @@ STATIC_URL = 'static/'
 
 # Login redirect urls
 
+LOGIN_URL = 'signin'
 LOGIN_REDIRECT_URL = 'expenses_list'
 
 # Default primary key field type
