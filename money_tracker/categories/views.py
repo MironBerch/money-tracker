@@ -6,6 +6,26 @@ from django.views.generic import View
 from django.views.generic.base import TemplateResponseMixin
 
 from categories.forms import CategoryForm
+from categories.services import get_user_categories
+
+
+class CategoryListView(
+    LoginRequiredMixin,
+    TemplateResponseMixin,
+    View,
+):
+    """View list of categories."""
+
+    template_name = 'categories/categories_list.html'
+
+    def get(self, request: HttpRequest, *args, **kwargs):
+        return self.render_to_response(
+            context={
+                'categories': get_user_categories(
+                    user=request.user,
+                ),
+            },
+        )
 
 
 class CategoryCreateView(
