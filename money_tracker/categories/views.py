@@ -3,23 +3,22 @@ from django.http import HttpRequest
 from django.views.generic import View
 from django.views.generic.base import TemplateResponseMixin
 
-from expenses.services import get_user_expenses
+from categories.forms import CategoryForm
 
 
-class ExpensesListView(
+class CategoryCreateView(
     LoginRequiredMixin,
     TemplateResponseMixin,
     View,
 ):
-    """View list of expenses."""
+    """View for creating new category."""
 
-    template_name = 'expenses/expenses_list.html'
+    form_class = CategoryForm
+    template_name = 'categories/category_create.html'
 
     def get(self, request: HttpRequest, *args, **kwargs):
         return self.render_to_response(
             context={
-                'expenses': get_user_expenses(
-                    user=request.user,
-                ),
+                'form': self.form_class(),
             },
         )

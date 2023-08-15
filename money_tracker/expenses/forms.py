@@ -1,14 +1,6 @@
 from django import forms
 
-from expenses.models import Category, Expense
-
-
-class CategoryForm(forms.ModelForm):
-    """Form for creating new category."""
-
-    class Meta:
-        model = Category
-        fields = ('name', )
+from expenses.models import Expense
 
 
 class ExpenseForm(forms.ModelForm):

@@ -22,6 +22,7 @@ INSTALLED_APPS = [
 
     'accounts.apps.AccountsConfig',
     'mailings.apps.MailingsConfig',
+    'categories.apps.CategoriesConfig',
     'expenses.apps.ExpensesConfig',
 ]
 
