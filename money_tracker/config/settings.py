@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'mailings.apps.MailingsConfig',
     'categories.apps.CategoriesConfig',
     'expenses.apps.ExpensesConfig',
+    'common.apps.CommonConfig',
 ]
 
 MIDDLEWARE = [
