@@ -1,6 +1,8 @@
 from unidecode import unidecode
 
+from django.utils.text import slugify
 
-def slug_to_english(slug: str) -> str:
+
+def create_slug(slug: str) -> str:
     """Return slug with english pronounce."""
-    return unidecode(slug)
+    return slugify(unidecode(slug))

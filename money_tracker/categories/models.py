@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from accounts.models import User
+from common.utils import create_slug
 
 
 class Category(models.Model):
@@ -27,3 +28,7 @@ class Category(models.Model):
 
     def __str__(self):
         return f'{self.name}'
+
+    def save(self, *args, **kwargs):
+        self.slug = create_slug(self.name)
+        super(Category, self).save(*args, **kwargs)
