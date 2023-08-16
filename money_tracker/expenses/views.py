@@ -40,12 +40,17 @@ class ExpenseCreateView(
     def get(self, request: HttpRequest, *args, **kwargs):
         return self.render_to_response(
             context={
-                'form': self.form_class(),
+                'form': self.form_class(
+                    user=request.user,
+                ),
             },
         )
 
     def post(self, request: HttpRequest, *args, **kwargs):
-        form = ExpenseForm(request.POST or None)
+        form = ExpenseForm(
+            request.POST or None,
+            user=request.user,
+        )
         if form.is_valid():
             expense = form.save(commit=False)
             expense.user = request.user
