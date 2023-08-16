@@ -27,3 +27,8 @@ def user_category_exist(user: User, slug: str) -> bool:
 def get_category_by_id(id: int) -> Category:
     """Return category by id."""
     return get_object_or_404(Category, id=id)
+
+
+def get_category_by_slug(slug: str) -> Category:
+    """Return category by slug."""
+    return get_object_or_404(Category, slug=slug)

@@ -5,7 +5,7 @@ from django.views.generic import View
 from django.views.generic.base import TemplateResponseMixin
 
 from categories.forms import CategoryForm
-from categories.services import get_user_categories, user_category_exist
+from categories.services import get_category_by_slug, get_user_categories, user_category_exist
 from common.utils import create_slug
 
 
@@ -57,3 +57,45 @@ class CategoryCreateView(
                 return redirect('create_category')
             category.save()
             return redirect('categories_list')
+
+
+class CategoryUpdateView(
+    LoginRequiredMixin,
+    TemplateResponseMixin,
+    View,
+):
+    """View for update category."""
+
+    template_name = 'categories/update_category.html'
+
+    def get(self, request, slug):
+        form = CategoryForm(
+            request.POST or None,
+            instance=get_category_by_slug(
+                slug=slug,
+            ),
+        )
+
+        return self.render_to_response(
+            context={
+                'form': form,
+            },
+        )
+
+    def post(self, request, slug):
+        form = CategoryForm(
+            request.POST or None,
+            instance=get_category_by_slug(
+                slug=slug,
+            ),
+        )
+
+        if form.is_valid():
+            category = form.save()
+            category.save()
+            return redirect(
+                'update_category',
+                slug=category.slug,
+            )
+
+        return redirect('update_category', slug=slug)
