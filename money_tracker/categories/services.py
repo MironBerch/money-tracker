@@ -1,4 +1,5 @@
 from django.db.models import QuerySet
+from django.shortcuts import get_object_or_404
 
 from accounts.models import User
 from categories.models import Category
@@ -21,3 +22,8 @@ def user_category_exist(user: User, slug: str) -> bool:
             slug=slug,
         ).exists()
     )
+
+
+def get_category_by_id(id: int) -> Category:
+    """Return category by id."""
+    return get_object_or_404(Category, id=id)
