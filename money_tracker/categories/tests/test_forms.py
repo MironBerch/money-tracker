@@ -1,13 +1,13 @@
 from django.test import TestCase
 
 from accounts.models import User
+from categories.forms import CategoryForm
 from categories.models import Category
-from expenses.forms import ExpenseForm
 
 
-class ExpenseFormTests(TestCase):
+class CategoryFormTests(TestCase):
 
-    def setUp(self) -> None:
+    def setUp(self):
         self.user = User.objects.create_user(
             email='testuser@gmail.com',
             first_name='testuser',
@@ -20,33 +20,18 @@ class ExpenseFormTests(TestCase):
             slug='test-category',
         )
 
-    def test_valid_form(self):
+    def test_category_form_valid(self):
         """Test that form with correct data is valid."""
         form_data = {
-            'user': self.user,
-            'amount': 100.00,
-            'name': 'Test Expense',
-            'description': 'Test Description',
-            'category': self.category,
-            'expense_date': '2022-01-01',
+            'name': 'New Category',
         }
-        form = ExpenseForm(
-            user=self.user,
-            data=form_data,
-        )
+        form = CategoryForm(data=form_data)
         self.assertTrue(form.is_valid())
 
-    def test_invalid_form(self):
+    def test_category_form_invalid(self):
         """Test that form with incorrect data is not valid."""
         form_data = {
-            'user': self.user,
-            'amount': -50.00,
             'name': '',
-            'category': self.category,
-            'expense_date': '2022-01-01',
         }
-        form = ExpenseForm(
-            user=self.user,
-            data=form_data,
-        )
+        form = CategoryForm(data=form_data)
         self.assertFalse(form.is_valid())
