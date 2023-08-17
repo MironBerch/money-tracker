@@ -5,7 +5,7 @@ from django.views.generic import View
 from django.views.generic.base import TemplateResponseMixin
 
 from categories.forms import CategoryForm
-from categories.services import get_category_by_slug, get_user_categories, user_category_exist
+from categories.services import get_user_categories, get_user_category_by_slug, user_category_exist
 from common.utils import create_slug
 
 
@@ -71,7 +71,8 @@ class CategoryUpdateView(
     def get(self, request, slug):
         form = CategoryForm(
             request.POST or None,
-            instance=get_category_by_slug(
+            instance=get_user_category_by_slug(
+                user=request.user,
                 slug=slug,
             ),
         )
@@ -85,7 +86,8 @@ class CategoryUpdateView(
     def post(self, request, slug):
         form = CategoryForm(
             request.POST or None,
-            instance=get_category_by_slug(
+            instance=get_user_category_by_slug(
+                user=request.user,
                 slug=slug,
             ),
         )

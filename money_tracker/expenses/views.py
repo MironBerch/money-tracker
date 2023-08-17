@@ -4,8 +4,9 @@ from django.shortcuts import redirect
 from django.views.generic import View
 from django.views.generic.base import TemplateResponseMixin
 
+from categories.services import get_user_category_by_slug
 from expenses.forms import ExpenseForm
-from expenses.services import get_user_expenses
+from expenses.services import get_expenses_by_category, get_user_expenses
 
 
 class ExpensesListView(
@@ -56,3 +57,25 @@ class ExpenseCreateView(
             expense.user = request.user
             expense.save()
             return redirect('expenses_list')
+
+
+class CategoryExpensesView(
+    LoginRequiredMixin,
+    TemplateResponseMixin,
+    View,
+):
+    """View for category expenses."""
+
+    template_name = 'expenses/category_expenses.html'
+
+    def get(self, request: HttpRequest, slug):
+        return self.render_to_response(
+            context={
+                'expenses': get_expenses_by_category(
+                    category=get_user_category_by_slug(
+                        user=request.user,
+                        slug=slug,
+                    ),
+                ),
+            },
+        )
