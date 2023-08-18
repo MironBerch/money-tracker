@@ -6,7 +6,7 @@ from django.views.generic.base import TemplateResponseMixin
 
 from categories.services import get_user_category_by_slug
 from expenses.forms import ExpenseForm
-from expenses.services import get_expenses_by_category, get_user_expenses
+from expenses.services import get_expenses_by_category, get_user_expense_by_id, get_user_expenses
 
 
 class ExpensesListView(
@@ -57,6 +57,26 @@ class ExpenseCreateView(
             expense.user = request.user
             expense.save()
             return redirect('expenses_list')
+
+
+class ExpenseDetailView(
+    LoginRequiredMixin,
+    TemplateResponseMixin,
+    View,
+):
+    """Detail expense view."""
+
+    template_name = 'expenses/detail_expense.html'
+
+    def get(self, request, id):
+        return self.render_to_response(
+            context={
+                'expense': get_user_expense_by_id(
+                    user=request.user,
+                    id=id,
+                ),
+            },
+        )
 
 
 class CategoryExpensesView(
