@@ -5,6 +5,7 @@ from expenses.views import (
     ExpenseCreateView,
     ExpenseDetailView,
     ExpensesListView,
+    ExpenseUpdateView,
 )
 
 urlpatterns = [
@@ -27,5 +28,10 @@ urlpatterns = [
         route='expense/<int:id>/',
         view=ExpenseDetailView.as_view(),
         name='expense_detail',
+    ),
+    path(
+        route='expense-update/<int:id>/',
+        view=ExpenseUpdateView.as_view(),
+        name='expense_update',
     ),
 ]

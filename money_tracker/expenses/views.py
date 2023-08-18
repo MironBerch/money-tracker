@@ -79,6 +79,31 @@ class ExpenseDetailView(
         )
 
 
+class ExpenseUpdateView(
+    LoginRequiredMixin,
+    TemplateResponseMixin,
+    View,
+):
+    """View for updating expense."""
+
+    template_name = 'expenses/expense_update.html'
+
+    def get(self, request, id):
+        form = ExpenseForm(
+            user=request.user,
+            instance=get_user_expense_by_id(
+                user=request.user,
+                id=id,
+            ),
+        )
+
+        return self.render_to_response(
+            context={
+                'form': form,
+            },
+        )
+
+
 class CategoryExpensesView(
     LoginRequiredMixin,
     TemplateResponseMixin,
