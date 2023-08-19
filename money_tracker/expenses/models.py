@@ -7,7 +7,7 @@ from categories.models import Category
 
 
 class Transaction(models.Model):
-    """Expenses model."""
+    """Transactions model."""
 
     user: User = models.ForeignKey(
         User,

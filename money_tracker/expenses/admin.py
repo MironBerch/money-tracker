@@ -4,7 +4,7 @@ from expenses.models import Transaction
 
 
 @admin.register(Transaction)
-class ExpenseAdmin(admin.ModelAdmin):
+class TransactionAdmin(admin.ModelAdmin):
     list_display = (
         'user',
         'amount',

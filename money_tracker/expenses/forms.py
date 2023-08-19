@@ -4,11 +4,11 @@ from categories.models import Category
 from expenses.models import Transaction
 
 
-class ExpenseForm(forms.ModelForm):
+class TransactionForm(forms.ModelForm):
     """Form for creating new expense."""
 
     def __init__(self, user, *args, **kwargs):
-        super(ExpenseForm, self).__init__(*args, **kwargs)
+        super(TransactionForm, self).__init__(*args, **kwargs)
         self.fields['category'].queryset = Category.objects.filter(user=user)
 
     class Meta:

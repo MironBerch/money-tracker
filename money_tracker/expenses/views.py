@@ -5,11 +5,11 @@ from django.views.generic import View
 from django.views.generic.base import TemplateResponseMixin
 
 from categories.services import get_user_category_by_slug
-from expenses.forms import ExpenseForm
+from expenses.forms import TransactionForm
 from expenses.services import get_expenses_by_category, get_user_expense_by_id, get_user_expenses
 
 
-class ExpensesListView(
+class TransactionsListView(
     LoginRequiredMixin,
     TemplateResponseMixin,
     View,
@@ -28,14 +28,14 @@ class ExpensesListView(
         )
 
 
-class ExpenseCreateView(
+class TransactionCreateView(
     LoginRequiredMixin,
     TemplateResponseMixin,
     View,
 ):
     """View for creating new expense."""
 
-    form_class = ExpenseForm
+    form_class = TransactionForm
     template_name = 'expenses/expense_create.html'
 
     def get(self, request: HttpRequest, *args, **kwargs):
@@ -48,7 +48,7 @@ class ExpenseCreateView(
         )
 
     def post(self, request: HttpRequest, *args, **kwargs):
-        form = ExpenseForm(
+        form = TransactionForm(
             request.POST or None,
             user=request.user,
         )
@@ -59,7 +59,7 @@ class ExpenseCreateView(
             return redirect('expenses_list')
 
 
-class ExpenseDetailView(
+class TransactionDetailView(
     LoginRequiredMixin,
     TemplateResponseMixin,
     View,
@@ -79,7 +79,7 @@ class ExpenseDetailView(
         )
 
 
-class ExpenseUpdateView(
+class TransactionUpdateView(
     LoginRequiredMixin,
     TemplateResponseMixin,
     View,
@@ -89,7 +89,7 @@ class ExpenseUpdateView(
     template_name = 'expenses/expense_update.html'
 
     def get(self, request, id):
-        form = ExpenseForm(
+        form = TransactionForm(
             user=request.user,
             instance=get_user_expense_by_id(
                 user=request.user,
@@ -104,7 +104,7 @@ class ExpenseUpdateView(
         )
 
     def post(self, request: HttpRequest, id, *args, **kwargs):
-        form = ExpenseForm(
+        form = TransactionForm(
             user=request.user,
             data=request.POST or None,
             instance=get_user_expense_by_id(
@@ -120,7 +120,7 @@ class ExpenseUpdateView(
         return redirect('expenses_list')
 
 
-class CategoryExpensesView(
+class CategoryTransactionsView(
     LoginRequiredMixin,
     TemplateResponseMixin,
     View,

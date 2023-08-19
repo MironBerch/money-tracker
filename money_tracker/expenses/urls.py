@@ -1,37 +1,37 @@
 from django.urls import path
 
 from expenses.views import (
-    CategoryExpensesView,
-    ExpenseCreateView,
-    ExpenseDetailView,
-    ExpensesListView,
-    ExpenseUpdateView,
+    CategoryTransactionsView,
+    TransactionCreateView,
+    TransactionDetailView,
+    TransactionsListView,
+    TransactionUpdateView,
 )
 
 urlpatterns = [
     path(
         route='expenses-list/',
-        view=ExpensesListView.as_view(),
+        view=TransactionsListView.as_view(),
         name='expenses_list',
     ),
     path(
         route='expenses-create/',
-        view=ExpenseCreateView.as_view(),
+        view=TransactionCreateView.as_view(),
         name='expense_create',
     ),
     path(
         route='expenses-list/<slug:slug>/',
-        view=CategoryExpensesView.as_view(),
+        view=CategoryTransactionsView.as_view(),
         name='expense_create',
     ),
     path(
         route='expense/<int:id>/',
-        view=ExpenseDetailView.as_view(),
+        view=TransactionDetailView.as_view(),
         name='expense_detail',
     ),
     path(
         route='expense-update/<int:id>/',
-        view=ExpenseUpdateView.as_view(),
+        view=TransactionUpdateView.as_view(),
         name='expense_update',
     ),
 ]

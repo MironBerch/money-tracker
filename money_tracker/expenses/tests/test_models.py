@@ -8,7 +8,7 @@ from categories.models import Category
 from expenses.models import Transaction
 
 
-class ExpenseModelTests(TestCase):
+class TransactionModelTests(TestCase):
 
     def setUp(self) -> None:
         User.objects.create_user(
