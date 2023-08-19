@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 from accounts.models import User
 from categories.models import Category
+from transactions.managers import TransactionManager
 
 
 class Transaction(models.Model):
@@ -47,6 +48,8 @@ class Transaction(models.Model):
         editable=True,
         verbose_name=_('date of transaction'),
     )
+
+    objects = TransactionManager()
 
     class Meta:
         ordering = ('-transaction_date', )
