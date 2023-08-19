@@ -24,3 +24,21 @@ def get_transaction_by_id(id: int) -> Transaction:
 def get_user_transaction_by_id(user: User, id: int) -> Transaction:
     """Get `Transaction` by id."""
     return get_object_or_404(Transaction, user=user, id=id)
+
+
+def get_user_expenses(user: User) -> QuerySet[Transaction]:
+    """Get user expenses."""
+    return Transaction.objects.get_expenses()
+
+
+def get_user_income(user: User) -> QuerySet[Transaction]:
+    """Get user income."""
+    return Transaction.objects.get_expenses()
+
+
+def filter_transactions_by_category(
+        transactions: QuerySet[Transaction],
+        category: Category,
+) -> QuerySet[Transaction]:
+    """Filter `Transaction`'s by category."""
+    return transactions.filter(category=category)

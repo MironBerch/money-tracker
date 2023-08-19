@@ -1,4 +1,3 @@
-from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -17,7 +16,6 @@ class Transaction(models.Model):
     )
 
     amount = models.FloatField(
-        validators=[MinValueValidator(0.0)],
         verbose_name=_('transaction amount'),
     )
     name = models.CharField(
