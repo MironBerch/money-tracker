@@ -1,7 +1,7 @@
 from django import forms
 
 from categories.models import Category
-from expenses.models import Expense
+from expenses.models import Transaction
 
 
 class ExpenseForm(forms.ModelForm):
@@ -12,7 +12,7 @@ class ExpenseForm(forms.ModelForm):
         self.fields['category'].queryset = Category.objects.filter(user=user)
 
     class Meta:
-        model = Expense
+        model = Transaction
         fields = (
             'amount',
             'name',

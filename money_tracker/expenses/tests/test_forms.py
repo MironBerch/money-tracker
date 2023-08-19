@@ -25,7 +25,7 @@ class ExpenseFormTests(TestCase):
         form_data = {
             'user': self.user,
             'amount': 100.00,
-            'name': 'Test Expense',
+            'name': 'Test Transaction',
             'description': 'Test Description',
             'category': self.category,
             'expense_date': '2022-01-01',

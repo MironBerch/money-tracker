@@ -1,9 +1,9 @@
 from django.contrib import admin
 
-from expenses.models import Expense
+from expenses.models import Transaction
 
 
-@admin.register(Expense)
+@admin.register(Transaction)
 class ExpenseAdmin(admin.ModelAdmin):
     list_display = (
         'user',

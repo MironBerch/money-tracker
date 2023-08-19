@@ -6,7 +6,7 @@ from accounts.models import User
 from categories.models import Category
 
 
-class Expense(models.Model):
+class Transaction(models.Model):
     """Expenses model."""
 
     user: User = models.ForeignKey(

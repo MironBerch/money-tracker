@@ -6,7 +6,7 @@ from common.utils import create_slug
 
 
 class Category(models.Model):
-    """Category for `Expense` model."""
+    """Category for `Transaction` model."""
 
     user: User = models.ForeignKey(
         User,
