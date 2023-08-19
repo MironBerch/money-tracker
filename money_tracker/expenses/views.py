@@ -103,6 +103,22 @@ class ExpenseUpdateView(
             },
         )
 
+    def post(self, request: HttpRequest, id, *args, **kwargs):
+        form = ExpenseForm(
+            user=request.user,
+            data=request.POST or None,
+            instance=get_user_expense_by_id(
+                user=request.user,
+                id=id,
+            ),
+        )
+
+        if form.is_valid():
+            form.save()
+            return redirect('expenses_list')
+
+        return redirect('expenses_list')
+
 
 class CategoryExpensesView(
     LoginRequiredMixin,
