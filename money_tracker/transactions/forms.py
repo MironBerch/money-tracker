@@ -1,11 +1,11 @@
 from django import forms
 
 from categories.models import Category
-from expenses.models import Transaction
+from transactions.models import Transaction
 
 
 class TransactionForm(forms.ModelForm):
-    """Form for creating new expense."""
+    """Form for creating new transaction."""
 
     def __init__(self, user, *args, **kwargs):
         super(TransactionForm, self).__init__(*args, **kwargs)
@@ -18,5 +18,5 @@ class TransactionForm(forms.ModelForm):
             'name',
             'description',
             'category',
-            'expense_date',
+            'transaction_date',
         )

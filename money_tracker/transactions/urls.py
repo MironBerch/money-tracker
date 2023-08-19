@@ -1,6 +1,6 @@
 from django.urls import path
 
-from expenses.views import (
+from transactions.views import (
     CategoryTransactionsView,
     TransactionCreateView,
     TransactionDetailView,
@@ -10,28 +10,28 @@ from expenses.views import (
 
 urlpatterns = [
     path(
-        route='expenses-list/',
+        route='transactions-list/',
         view=TransactionsListView.as_view(),
-        name='expenses_list',
+        name='transactions_list',
     ),
     path(
-        route='expenses-create/',
+        route='transactions-create/',
         view=TransactionCreateView.as_view(),
-        name='expense_create',
+        name='transaction_create',
     ),
     path(
-        route='expenses-list/<slug:slug>/',
+        route='transactions-list/<slug:slug>/',
         view=CategoryTransactionsView.as_view(),
-        name='expense_create',
+        name='transaction_create',
     ),
     path(
-        route='expense/<int:id>/',
+        route='transaction/<int:id>/',
         view=TransactionDetailView.as_view(),
-        name='expense_detail',
+        name='transaction_detail',
     ),
     path(
-        route='expense-update/<int:id>/',
+        route='transaction-update/<int:id>/',
         view=TransactionUpdateView.as_view(),
-        name='expense_update',
+        name='transaction_update',
     ),
 ]

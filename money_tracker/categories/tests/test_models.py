@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.utils.translation import gettext_lazy as _
 
 from accounts.models import User
-from expenses.models import Category
+from transactions.models import Category
 
 
 class CategoryModelTests(TestCase):

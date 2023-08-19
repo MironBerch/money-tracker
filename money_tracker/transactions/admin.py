@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from expenses.models import Transaction
+from transactions.models import Transaction
 
 
 @admin.register(Transaction)
@@ -11,12 +11,12 @@ class TransactionAdmin(admin.ModelAdmin):
         'name',
         'category',
         'cost_accounting_date',
-        'expense_date',
+        'transaction_date',
     )
     search_fields = (
         'user',
         'category',
-        'expense_date',
+        'transaction_date',
     )
     readonly_fields = (
         'id',

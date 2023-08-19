@@ -12,19 +12,19 @@ class Transaction(models.Model):
     user: User = models.ForeignKey(
         User,
         on_delete=models.PROTECT,
-        verbose_name=_('expense author'),
+        verbose_name=_('transaction author'),
     )
 
     amount = models.FloatField(
         validators=[MinValueValidator(0.0)],
-        verbose_name=_('expense amount'),
+        verbose_name=_('transaction amount'),
     )
     name = models.CharField(
-        verbose_name=_('expense name'),
+        verbose_name=_('transaction name'),
         max_length=50,
     )
     description = models.TextField(
-        verbose_name=_('expense description'),
+        verbose_name=_('transaction description'),
         max_length=500,
         blank=True,
     )
@@ -32,7 +32,7 @@ class Transaction(models.Model):
     category: Category = models.ForeignKey(
         Category,
         on_delete=models.PROTECT,
-        verbose_name=_('expense category'),
+        verbose_name=_('transaction category'),
     )
 
     cost_accounting_date = models.DateField(
@@ -41,17 +41,17 @@ class Transaction(models.Model):
     )
     modified_date = models.DateField(
         auto_now=True,
-        verbose_name=_('expense modified date'),
+        verbose_name=_('transaction modified date'),
     )
-    expense_date = models.DateField(
+    transaction_date = models.DateField(
         editable=True,
-        verbose_name=_('date of expense'),
+        verbose_name=_('date of transaction'),
     )
 
     class Meta:
-        ordering = ('-expense_date', )
-        verbose_name = _('expense')
-        verbose_name_plural = _('expenses')
+        ordering = ('-transaction_date', )
+        verbose_name = _('transaction')
+        verbose_name_plural = _('transactions')
 
     def __str__(self):
         return f'{self.name}'

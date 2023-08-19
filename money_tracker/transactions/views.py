@@ -5,8 +5,12 @@ from django.views.generic import View
 from django.views.generic.base import TemplateResponseMixin
 
 from categories.services import get_user_category_by_slug
-from expenses.forms import TransactionForm
-from expenses.services import get_expenses_by_category, get_user_expense_by_id, get_user_expenses
+from transactions.forms import TransactionForm
+from transactions.services import (
+    get_transactions_by_category,
+    get_user_transaction_by_id,
+    get_user_transactions,
+)
 
 
 class TransactionsListView(
@@ -14,14 +18,14 @@ class TransactionsListView(
     TemplateResponseMixin,
     View,
 ):
-    """View list of expenses."""
+    """View list of transactions."""
 
-    template_name = 'expenses/expenses_list.html'
+    template_name = 'transactions/transactions_list.html'
 
     def get(self, request: HttpRequest, *args, **kwargs):
         return self.render_to_response(
             context={
-                'expenses': get_user_expenses(
+                'transactions': get_user_transactions(
                     user=request.user,
                 ),
             },
@@ -33,10 +37,10 @@ class TransactionCreateView(
     TemplateResponseMixin,
     View,
 ):
-    """View for creating new expense."""
+    """View for creating new transaction."""
 
     form_class = TransactionForm
-    template_name = 'expenses/expense_create.html'
+    template_name = 'transactions/transactions_create.html'
 
     def get(self, request: HttpRequest, *args, **kwargs):
         return self.render_to_response(
@@ -53,10 +57,10 @@ class TransactionCreateView(
             user=request.user,
         )
         if form.is_valid():
-            expense = form.save(commit=False)
-            expense.user = request.user
-            expense.save()
-            return redirect('expenses_list')
+            transaction = form.save(commit=False)
+            transaction.user = request.user
+            transaction.save()
+            return redirect('transactions_list')
 
 
 class TransactionDetailView(
@@ -64,14 +68,14 @@ class TransactionDetailView(
     TemplateResponseMixin,
     View,
 ):
-    """Detail expense view."""
+    """Detail transaction view."""
 
-    template_name = 'expenses/detail_expense.html'
+    template_name = 'transactions/transactions_detail.html'
 
     def get(self, request, id):
         return self.render_to_response(
             context={
-                'expense': get_user_expense_by_id(
+                'transaction': get_user_transaction_by_id(
                     user=request.user,
                     id=id,
                 ),
@@ -84,14 +88,14 @@ class TransactionUpdateView(
     TemplateResponseMixin,
     View,
 ):
-    """View for updating expense."""
+    """View for updating transaction."""
 
-    template_name = 'expenses/expense_update.html'
+    template_name = 'transactions/transactions_update.html'
 
     def get(self, request, id):
         form = TransactionForm(
             user=request.user,
-            instance=get_user_expense_by_id(
+            instance=get_user_transaction_by_id(
                 user=request.user,
                 id=id,
             ),
@@ -107,7 +111,7 @@ class TransactionUpdateView(
         form = TransactionForm(
             user=request.user,
             data=request.POST or None,
-            instance=get_user_expense_by_id(
+            instance=get_user_transaction_by_id(
                 user=request.user,
                 id=id,
             ),
@@ -115,9 +119,9 @@ class TransactionUpdateView(
 
         if form.is_valid():
             form.save()
-            return redirect('expenses_list')
+            return redirect('transactions_list')
 
-        return redirect('expenses_list')
+        return redirect('transactions_list')
 
 
 class CategoryTransactionsView(
@@ -125,14 +129,14 @@ class CategoryTransactionsView(
     TemplateResponseMixin,
     View,
 ):
-    """View for category expenses."""
+    """View for category transactions."""
 
-    template_name = 'expenses/category_expenses.html'
+    template_name = 'transactions/transactions_category.html'
 
     def get(self, request: HttpRequest, slug):
         return self.render_to_response(
             context={
-                'expenses': get_expenses_by_category(
+                'transactions': get_transactions_by_category(
                     category=get_user_category_by_slug(
                         user=request.user,
                         slug=slug,

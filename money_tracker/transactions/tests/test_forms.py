@@ -2,7 +2,7 @@ from django.test import TestCase
 
 from accounts.models import User
 from categories.models import Category
-from expenses.forms import TransactionForm
+from transactions.forms import TransactionForm
 
 
 class TransactionFormTests(TestCase):
@@ -28,7 +28,7 @@ class TransactionFormTests(TestCase):
             'name': 'Test Transaction',
             'description': 'Test Description',
             'category': self.category,
-            'expense_date': '2022-01-01',
+            'transaction_date': '2022-01-01',
         }
         form = TransactionForm(
             user=self.user,
@@ -43,7 +43,7 @@ class TransactionFormTests(TestCase):
             'amount': -50.00,
             'name': '',
             'category': self.category,
-            'expense_date': '2022-01-01',
+            'transaction_date': '2022-01-01',
         }
         form = TransactionForm(
             user=self.user,

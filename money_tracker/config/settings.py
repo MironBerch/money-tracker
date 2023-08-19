@@ -23,7 +23,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'mailings.apps.MailingsConfig',
     'categories.apps.CategoriesConfig',
-    'expenses.apps.TransactionsConfig',
+    'transactions.apps.TransactionsConfig',
     'common.apps.CommonConfig',
 ]
 
@@ -45,7 +45,7 @@ TEMPLATES = [
         'DIRS': [
             BASE_DIR / 'templates',
             BASE_DIR / 'accounts/templates',
-            BASE_DIR / 'expenses/templates',
+            BASE_DIR / 'transactions/templates',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -117,7 +117,7 @@ STATIC_URL = 'static/'
 # Login redirect urls
 
 LOGIN_URL = 'signin'
-LOGIN_REDIRECT_URL = 'expenses_list'
+LOGIN_REDIRECT_URL = 'transactions_list'
 
 # Default primary key field type
 
