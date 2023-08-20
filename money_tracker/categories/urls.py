@@ -4,17 +4,17 @@ from categories.views import CategoryCreateView, CategoryListView, CategoryUpdat
 
 urlpatterns = [
     path(
-        route='categories/create/',
+        route='categories-create/',
         view=CategoryCreateView.as_view(),
         name='create_category',
     ),
     path(
-        route='categories/list/',
+        route='categories-list/',
         view=CategoryListView.as_view(),
         name='categories_list',
     ),
     path(
-        route='categories/<slug:slug>/update/',
+        route='categories-update/<slug:slug>/',
         view=CategoryUpdateView.as_view(),
         name='update_category',
     ),

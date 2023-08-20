@@ -25,12 +25,12 @@ urlpatterns = [
         name='transaction_create',
     ),
     path(
-        route='transaction/<int:id>/',
+        route='transactions-detail/<int:id>/',
         view=TransactionDetailView.as_view(),
         name='transaction_detail',
     ),
     path(
-        route='transaction-update/<int:id>/',
+        route='transactions-update/<int:id>/',
         view=TransactionUpdateView.as_view(),
         name='transaction_update',
     ),
