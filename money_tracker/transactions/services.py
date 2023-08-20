@@ -28,12 +28,20 @@ def get_user_transaction_by_id(user: User, id: int) -> Transaction:
 
 def get_user_expenses(user: User) -> QuerySet[Transaction]:
     """Get user expenses."""
-    return Transaction.objects.get_expenses()
+    return (
+        Transaction.objects.get_expenses().filter(
+            user=user,
+        )
+    )
 
 
 def get_user_income(user: User) -> QuerySet[Transaction]:
     """Get user income."""
-    return Transaction.objects.get_expenses()
+    return (
+        Transaction.objects.get_income().filter(
+            user=user,
+        )
+    )
 
 
 def filter_transactions_by_category(
