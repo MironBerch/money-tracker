@@ -9,6 +9,7 @@ class Budget(models.Model):
 
     budget = models.FloatField(
         verbose_name=_('overall budget'),
+        default=0,
     )
 
     user: User = models.OneToOneField(
