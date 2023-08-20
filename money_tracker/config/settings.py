@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'categories.apps.CategoriesConfig',
     'transactions.apps.TransactionsConfig',
     'common.apps.CommonConfig',
+    'budgets.apps.BudgetsConfig',
 ]
 
 MIDDLEWARE = [
