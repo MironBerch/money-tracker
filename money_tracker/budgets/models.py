@@ -14,7 +14,7 @@ class Budget(models.Model):
 
     user: User = models.OneToOneField(
         User,
-        related_name=_('budget'),
+        related_name='budget',
         on_delete=models.CASCADE,
     )
 

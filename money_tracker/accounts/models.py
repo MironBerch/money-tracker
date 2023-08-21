@@ -103,7 +103,7 @@ class Profile(models.Model):
     )
     user: User = models.OneToOneField(
         User,
-        related_name=_('profile'),
+        related_name='profile',
         on_delete=models.CASCADE,
     )
 
@@ -137,7 +137,7 @@ class Settings(models.Model):
     )
     user: User = models.OneToOneField(
         User,
-        related_name=_('settings'),
+        related_name='settings',
         on_delete=models.CASCADE,
     )
 
