@@ -56,3 +56,11 @@ class Transaction(models.Model):
 
     def __str__(self):
         return f'{self.name}'
+
+    def save(self, *args, **kwargs):
+        if self.pk:
+            self.user.budget.budget -= (
+                Transaction.objects.get(id=self.pk)
+            )
+        self.user.budget.budget += self.amount
+        super().save(*args, **kwargs)
