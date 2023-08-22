@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'common.apps.CommonConfig',
     'budgets.apps.BudgetsConfig',
     'export.apps.ExportConfig',
+    'main.apps.MainConfig',
 ]
 
 MIDDLEWARE = [
@@ -47,7 +48,9 @@ TEMPLATES = [
         'DIRS': [
             BASE_DIR / 'templates',
             BASE_DIR / 'accounts/templates',
+            BASE_DIR / 'categories/templates',
             BASE_DIR / 'transactions/templates',
+            BASE_DIR / 'main/templates',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
