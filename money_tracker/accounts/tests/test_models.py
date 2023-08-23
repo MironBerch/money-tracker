@@ -7,7 +7,6 @@ from accounts.models import (
     Settings,
     SettingsСurrencyChoices,
     User,
-    get_default_profile_image,
     get_profile_image_upload_path,
 )
 
@@ -155,7 +154,6 @@ class ProfileModelTests(TestCase):
         self.assertTrue(profile_image_field.blank)
         self.assertTrue(profile_image_field.null)
         self.assertEqual(profile_image_field.upload_to, get_profile_image_upload_path)
-        self.assertEqual(profile_image_field.default, get_default_profile_image)
 
     def test_date_of_birth_field_params(self):
         """Test that date_of_birth field has all required parameters."""

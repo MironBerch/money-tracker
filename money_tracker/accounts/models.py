@@ -66,10 +66,6 @@ def get_profile_image_upload_path(instance: 'Profile', filename: str) -> str:
     return f'upload/users/{instance.user.email}/profile/{filename}'
 
 
-def get_default_profile_image() -> str:
-    return 'default/profile/default_profile_image.png'
-
-
 class ProfileGenderChoices(models.TextChoices):
     MALE = 'M', 'Мужской'
     FEMALE = 'F', 'Женский'
@@ -84,7 +80,6 @@ class Profile(models.Model):
         blank=True,
         null=True,
         upload_to=get_profile_image_upload_path,
-        default=get_default_profile_image,
     )
     date_of_birth = models.DateField(
         verbose_name=_('date of birth'),
