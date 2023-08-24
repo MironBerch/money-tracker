@@ -1,16 +1,46 @@
 {% extends "base.html" %}
 
+{% load static%}
+
+{% block styles %}
+    <link href="{% static 'accounts/css/signin.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    Log in &bull; Money tracker
+{% endblock %}
+
 {% block content %}
-    <div class="login-page">
-        <h1>Log in</h1>
+    <div class="d-flex align-items-center py-4 bg-body-tertiary">
+        <div class="form-signin w-100 m-auto">
+            <form method="POST">
+                {% csrf_token %}
+                <h1 class="h3 mb-3 fw-normal">Please log in</h1>
 
-        <form method="POST" class="">
-            {% csrf_token %}
-            {{ form }}
-            <div class="form-buttons">
-                <input type="submit" class="button" value="Log in">
-            </div>
-        </form>
+                <div class="form-floating">
+                    {{ form.username }}
+                    <label for="floatingInput">Email address</label>
+                </div>
 
+                <div class="form-floating">
+                    {{ form.password }}
+                    <label for="floatingPassword">Password</label>
+                </div>
+
+                <div class="form-check text-start my-3">
+                    <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Remember me
+                    </label>
+                </div>
+
+                <p class="reset-password">
+                    Forgot your password?
+                    <a href="{% url 'password_reset' %}">Click here to reset it</a>
+                </p>
+
+                <button class="btn btn-primary w-100 py-2" type="submit">Log in</button>
+            </form>
+        </div>
     </div>
 {% endblock %}
