@@ -1,4 +1,10 @@
-from django.contrib.auth.forms import PasswordResetForm, UserChangeForm, UserCreationForm
+from django import forms
+from django.contrib.auth.forms import (
+    AuthenticationForm,
+    PasswordResetForm,
+    UserChangeForm,
+    UserCreationForm,
+)
 
 from accounts.models import User
 from accounts.tasks import send_password_reset_link
@@ -22,6 +28,29 @@ class SignUpForm(UserCreationForm):
         self.fields['email'].label = 'Email'
         self.fields['first_name'].label = 'Имя'
         self.fields['last_name'].label = 'Фамилия'
+
+
+class AuthenticationForm(AuthenticationForm):
+    """Custom Authentication form."""
+
+    username = forms.EmailField(
+        widget=forms.EmailInput(
+            attrs={
+                'class': 'form-control',
+                'id': 'floatingInput',
+                'placeholder': 'name@example.com',
+            },
+        ),
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'id': 'floatingPassword',
+                'placeholder': 'Password',
+            },
+        ),
+    )
 
 
 class AdminUserChangeForm(UserChangeForm):

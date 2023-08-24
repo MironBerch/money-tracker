@@ -15,7 +15,7 @@ from django.urls import reverse_lazy
 from django.views.generic import View
 from django.views.generic.base import TemplateResponseMixin
 
-from accounts.forms import PasswordResetForm, SignUpForm
+from accounts.forms import AuthenticationForm, PasswordResetForm, SignUpForm
 from accounts.mixins import AnonymousUserRequiredMixin
 from accounts.services import get_user_by_pk
 
@@ -57,6 +57,7 @@ class SignInView(
 ):
     """View for signing in."""
 
+    form_class = AuthenticationForm
     template_name = 'registration/signin.html'
 
 
