@@ -3,26 +3,51 @@ body {
     height: 100%;
 }
 
-.form-signin {
-    max-width: 330px;
+.form-signup {
+    max-width: 540px;
     padding: 1rem;
 }
 
-.form-signin .form-floating:focus-within {
+.form-signup .form-floating:focus-within {
     z-index: 2;
 }
 
-.form-signin input[type="email"] {
-    margin-bottom: 0px;
+.form-signup input[id="floatingEmail"] {
+    margin-bottom: 5px;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
 }
 
-.form-signin input[type="password"] {
+.form-signup input[id="floatingName"] {
+    margin-bottom: 5px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-signup input[id="floatingSurname"] {
+    margin-bottom: 5px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-signup input[id="floatingPassword1"] {
+    margin-bottom: 5px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-signup input[id="floatingPassword2"] {
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+
 
 
 .bd-placeholder-img {

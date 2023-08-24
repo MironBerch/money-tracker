@@ -13,6 +13,56 @@ from accounts.tasks import send_password_reset_link
 class SignUpForm(UserCreationForm):
     """Form for signing up/creating new account."""
 
+    email = forms.EmailField(
+        widget=forms.EmailInput(
+            attrs={
+                'class': 'form-control',
+                'id': 'floatingEmail',
+                'placeholder': 'name@example.com',
+            },
+        ),
+    )
+
+    first_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'id': 'floatingName',
+                'placeholder': 'Name',
+            },
+        ),
+    )
+
+    last_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'id': 'floatingSurname',
+                'placeholder': 'Surname',
+            },
+        ),
+    )
+
+    password1 = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'id': 'floatingPassword1',
+                'placeholder': 'Password',
+            },
+        ),
+    )
+
+    password2 = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'id': 'floatingPassword2',
+                'placeholder': 'Confirm password',
+            },
+        ),
+    )
+
     class Meta:
         model = User
         fields = (
@@ -26,8 +76,8 @@ class SignUpForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(SignUpForm, self).__init__(*args, **kwargs)
         self.fields['email'].label = 'Email'
-        self.fields['first_name'].label = 'Имя'
-        self.fields['last_name'].label = 'Фамилия'
+        self.fields['first_name'].label = 'Name'
+        self.fields['last_name'].label = 'Surname'
 
 
 class AuthenticationForm(AuthenticationForm):

@@ -1,16 +1,49 @@
 {% extends "base.html" %}
 
+{% load static%}
+
+{% block styles %}
+    <link href="{% static 'accounts/css/signup.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    Sign up &bull; Money tracker
+{% endblock %}
+
 {% block content %}
-    <div class="reg-page">
-        <h1>Log in</h1>
+    <div class="d-flex align-items-center py-4 bg-body-tertiary">
+        <div class="form-signup w-100 m-auto">
+            <form method="POST">
+                {% csrf_token %}
+                <h1 class="h3 mb-3 fw-normal">Please Sign up</h1>
 
-        <form method="POST" class="">
-            {% csrf_token %}
-            {{ form }}
-            <div class="form-buttons">
-                <input type="submit" class="button" value="Log up">
-            </div>
-        </form>
+                <div class="form-floating">
+                    {{ form.email }}
+                    <label for="floatingEmail">Email address</label>
+                </div>
 
+                <div class="form-floating">
+                    {{ form.first_name }}
+                    <label for="floatingName">First name</label>
+                </div>
+
+                <div class="form-floating">
+                    {{ form.last_name }}
+                    <label for="floatingSurname">Last name</label>
+                </div>
+
+                <div class="form-floating">
+                    {{ form.password1 }}
+                    <label for="floatingPassword1">Password</label>
+                </div>
+
+                <div class="form-floating">
+                    {{ form.password2 }}
+                    <label for="floatingPassword2">Confirm password</label>
+                </div>
+
+                <button class="btn btn-primary w-100 py-2" type="submit">Sign up</button>
+            </form>
+        </div>
     </div>
 {% endblock %}
