@@ -1,7 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import (
     AuthenticationForm,
+    PasswordChangeForm,
     PasswordResetForm,
+    SetPasswordForm,
     UserChangeForm,
     UserCreationForm,
 )
@@ -122,6 +124,16 @@ class PasswordResetForm(PasswordResetForm):
     Send emails using Celery.
     """
 
+    email = forms.EmailField(
+        widget=forms.EmailInput(
+            attrs={
+                'class': 'form-control',
+                'id': 'floatingEmail',
+                'placeholder': 'name@example.com',
+            },
+        ),
+    )
+
     def send_mail(
             self,
             subject_template_name,
@@ -140,3 +152,72 @@ class PasswordResetForm(PasswordResetForm):
             to_email=to_email,
             html_email_template_name=html_email_template_name,
         )
+
+
+class SetPasswordForm(SetPasswordForm):
+    """Custom set password form."""
+
+    old_password = forms.CharField(
+        strip=False,
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'id': 'floatingPassword',
+                'placeholder': 'Password',
+                'autocomplete': 'current-password',
+                'autofocus': True,
+            },
+        ),
+    )
+
+    new_password1 = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'id': 'floatingPassword',
+                'placeholder': 'Password',
+            },
+        ),
+    )
+
+    new_password2 = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'id': 'floatingPassword',
+                'placeholder': 'Confirm password',
+            },
+        ),
+    )
+
+
+class PasswordChangeForm(PasswordChangeForm):
+    old_password = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'id': 'floatingPassword',
+                'placeholder': 'Password',
+            },
+        ),
+    )
+
+    new_password1 = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'id': 'floatingPassword',
+                'placeholder': 'Password',
+            },
+        ),
+    )
+
+    new_password2 = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'id': 'floatingPassword',
+                'placeholder': 'Confirm password',
+            },
+        ),
+    )

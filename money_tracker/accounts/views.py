@@ -15,7 +15,13 @@ from django.urls import reverse_lazy
 from django.views.generic import View
 from django.views.generic.base import TemplateResponseMixin
 
-from accounts.forms import AuthenticationForm, PasswordResetForm, SignUpForm
+from accounts.forms import (
+    AuthenticationForm,
+    PasswordChangeForm,
+    PasswordResetForm,
+    SetPasswordForm,
+    SignUpForm,
+)
 from accounts.mixins import AnonymousUserRequiredMixin
 from accounts.services import get_user_by_pk
 
@@ -87,6 +93,7 @@ class PasswordResetDoneView(PasswordResetDoneView):
 class PasswordResetConfirmView(PasswordResetConfirmView):
     """View for confirm resetting a password."""
 
+    form_class = SetPasswordForm
     template_name = 'registration/password_reset_confirm.html'
     success_url = reverse_lazy('password_reset_complete')
 
@@ -100,6 +107,7 @@ class PasswordResetCompleteView(PasswordResetCompleteView):
 class PasswordChangeView(PasswordChangeView):
     """View for changing a password."""
 
+    form_class = PasswordChangeForm
     template_name = 'registration/password_change.html'
     success_url = reverse_lazy('password_change_done')
 
