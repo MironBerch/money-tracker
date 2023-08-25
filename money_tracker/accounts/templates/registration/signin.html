@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block title %}
-    Log in &bull; Money tracker
+    Log in &bull;
 {% endblock %}
 
 {% block content %}
@@ -15,7 +15,7 @@
         <div class="form-signin w-100 m-auto">
             <form method="POST">
                 {% csrf_token %}
-                <h1 class="h3 mb-3 fw-normal">Please log in</h1>
+                <h1 class="h3 mb-3 fw-normal">Log in</h1>
 
                 <div class="form-floating">
                     {{ form.username }}
