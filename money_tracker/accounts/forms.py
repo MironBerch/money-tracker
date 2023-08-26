@@ -7,8 +7,10 @@ from django.contrib.auth.forms import (
     UserChangeForm,
     UserCreationForm,
 )
+from django.core.exceptions import ValidationError
+from django.utils import timezone
 
-from accounts.models import User
+from accounts.models import Profile, User
 from accounts.tasks import send_password_reset_link
 
 
@@ -233,3 +235,45 @@ class UserInfoForm(forms.ModelForm):
             'last_name',
             'email',
         )
+
+
+class ProfileForm(forms.ModelForm):
+    """Form for editing user profile."""
+
+    class Meta:
+        model = Profile
+        fields = (
+            'gender',
+            'date_of_birth',
+        )
+        widgets = {
+            'date_of_birth': forms.DateInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Select a date',
+                    'type': 'date',
+                },
+            ),
+        }
+
+    def clean_date_of_birth(self):
+        """Handles input of date_of_birth field.
+
+        date of birth can't be in the future, Host must be at least 14 years old
+        """
+        date_of_birth = self.cleaned_data['date_of_birth']
+        if date_of_birth:
+            date_now = timezone.now().date()
+            year_diff = (date_now.month, date_now.day) < (date_of_birth.month, date_of_birth.day)
+            host_age = date_now.year - date_of_birth.year - year_diff
+            if date_of_birth > date_now:
+                raise ValidationError(
+                    'Invalid date: date of birth in the future.',
+                    code='invalid',
+                )
+            elif host_age < 14:
+                raise ValidationError(
+                    'Invalid date: You must be at least 14 years old.',
+                    code='underage',
+                )
+        return date_of_birth
