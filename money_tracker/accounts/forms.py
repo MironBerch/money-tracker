@@ -221,3 +221,15 @@ class PasswordChangeForm(PasswordChangeForm):
             },
         ),
     )
+
+
+class UserInfoForm(forms.ModelForm):
+    """Form for editing user info."""
+
+    class Meta:
+        model = User
+        fields = (
+            'first_name',
+            'last_name',
+            'email',
+        )
