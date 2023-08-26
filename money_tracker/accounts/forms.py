@@ -194,6 +194,8 @@ class SetPasswordForm(SetPasswordForm):
 
 
 class PasswordChangeForm(PasswordChangeForm):
+    """Password change form."""
+
     old_password = forms.CharField(
         widget=forms.PasswordInput(
             attrs={
@@ -277,3 +279,22 @@ class ProfileForm(forms.ModelForm):
                     code='underage',
                 )
         return date_of_birth
+
+
+class ProfileImageForm(forms.ModelForm):
+    """Form for uploading profile image."""
+
+    class Meta:
+        model = Profile
+        fields = ('profile_image', )
+        widgets = {
+            'profile_image': forms.FileInput(),
+        }
+
+
+class ProfileDescriptionForm(forms.ModelForm):
+    """Form for editing user description ('about me' section)."""
+
+    class Meta:
+        model = Profile
+        fields = ('description', )
