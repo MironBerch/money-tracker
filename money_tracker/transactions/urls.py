@@ -22,7 +22,7 @@ urlpatterns = [
     path(
         route='transactions-list/<slug:slug>/',
         view=CategoryTransactionsView.as_view(),
-        name='transaction_create',
+        name='category_transactions',
     ),
     path(
         route='transactions-detail/<int:id>/',
