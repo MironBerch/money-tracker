@@ -123,6 +123,7 @@ if DEBUG:
     STATICFILES_DIRS = [
         BASE_DIR / 'static',
         BASE_DIR / 'accounts' / 'static',
+        BASE_DIR / 'categories' / 'static',
     ]
 else:
     STATIC_ROOT = BASE_DIR / 'static'

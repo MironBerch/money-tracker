@@ -1,14 +1,29 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+
+{% load static%}
+
+{% block styles %}
+    <link href="{% static 'categories/css/categories.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    Update category &bull;
+{% endblock %}
 
 {% block content %}
+    <div class="d-flex align-items-center py-4 bg-body-tertiary">
+        <div class="form-category w-100 m-auto">
+            <form method="POST">
+                {% csrf_token %}
+                <h1 class="h3 mb-3 fw-normal text-center">Update category</h1>
 
-<form method="POST">
-    {% csrf_token %}
-    {{ form }}
+                <div class="form-floating">
+                    {{ form.name }}
+                    <label for="floatingInput">Category name</label>
+                </div>
 
-    <div class="form-buttons">
-        <input type="submit" class="button" value="create category">
+                <button class="btn btn-primary w-100 py-2" type="submit">Update category</button>
+            </form>
+        </div>
     </div>
-</form>
-
 {% endblock %}
