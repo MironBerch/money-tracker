@@ -1,10 +1,37 @@
 {% extends 'base.html' %}
 
+{% load static%}
+
+{% block title %}
+    Categories list &bull;
+{% endblock %}
+
 {% block content %}
-
-
-{% for category in categories %}
-    {{ category }}
-{% endfor %}
-
+    <h1 class="text-center">Categories list</h1>
+    <br>
+    <div style="margin-left: 10px; margin-right: 10px;">
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Number of category transactions</th>
+                <th scope="col">View category transactions</th>
+                <th scope="col">Edit category</th>
+                </tr>
+            </thead>
+            {% for category in categories %}
+                <tbody>
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ category.name }}</td>
+                        <td>{{ category.num_transactions }}</td>
+                        <td><a href="{% url 'category_transactions' slug=category.slug %}">View</a></td>
+                        <td><a href="{% url 'update_category' slug=category.slug %}">Edit</a></td>
+                    </tr>
+                </tbody>
+            {% endfor %}
+        </table>
+        <a href="{% url 'create_category' %}" class="btn btn-primary w-100 py-2" type="submit">Create new category</a>
+    </div>
 {% endblock %}
