@@ -5,7 +5,11 @@ from django.views.generic import View
 from django.views.generic.base import TemplateResponseMixin
 
 from categories.forms import CategoryForm
-from categories.services import get_user_categories, get_user_category_by_slug, user_category_exist
+from categories.services import (
+    get_annotated_user_categories,
+    get_user_category_by_slug,
+    user_category_exist,
+)
 from common.utils import create_slug
 
 
@@ -21,7 +25,7 @@ class CategoryListView(
     def get(self, request: HttpRequest, *args, **kwargs):
         return self.render_to_response(
             context={
-                'categories': get_user_categories(
+                'categories': get_annotated_user_categories(
                     user=request.user,
                 ),
             },

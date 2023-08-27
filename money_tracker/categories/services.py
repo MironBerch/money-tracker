@@ -1,4 +1,4 @@
-from django.db.models import QuerySet
+from django.db.models import Count, QuerySet
 from django.shortcuts import get_object_or_404
 
 from accounts.models import User
@@ -10,6 +10,17 @@ def get_user_categories(user: User) -> QuerySet[Category]:
     return (
         Category.objects.filter(
             user=user,
+        )
+    )
+
+
+def get_annotated_user_categories(user: User) -> QuerySet[Category]:
+    """Return annotated categories which created by user."""
+    return (
+        Category.objects.filter(
+            user=user,
+        ).annotate(
+            num_transactions=Count('transaction'),
         )
     )
 
