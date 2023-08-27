@@ -159,19 +159,6 @@ class PasswordResetForm(PasswordResetForm):
 class SetPasswordForm(SetPasswordForm):
     """Custom set password form."""
 
-    old_password = forms.CharField(
-        strip=False,
-        widget=forms.PasswordInput(
-            attrs={
-                'class': 'form-control',
-                'id': 'floatingPassword',
-                'placeholder': 'Password',
-                'autocomplete': 'current-password',
-                'autofocus': True,
-            },
-        ),
-    )
-
     new_password1 = forms.CharField(
         widget=forms.PasswordInput(
             attrs={
