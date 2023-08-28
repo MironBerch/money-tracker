@@ -1,14 +1,49 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+
+{% load static%}
+
+{% block styles %}
+    <link href="{% static 'transactions/css/transactions.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    Create transaction &bull;
+{% endblock %}
 
 {% block content %}
+    <div class="d-flex align-items-center py-4 bg-body-tertiary">
+        <div class="form-transaction w-100 m-auto">
+            <form method="POST">
+                {% csrf_token %}
+                <h1 class="h3 mb-3 fw-normal text-center">Create new transaction</h1>
 
-<form method="POST">
-    {% csrf_token %}
-    {{ form }}
+                <div class="mb-3">
+                    <label for="floatingInput" class="form-label">Email address</label>
+                    {{ form.amount }}
+                </div>
 
-    <div class="form-buttons">
-        <input type="submit" class="button" value="create transaction">
+                <div class="mb-3">
+                    <label for="floatingInput" class="form-label">Transaction name</label>
+                    {{ form.name }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="floatingInput" class="form-label">Transaction description</label>
+                    {{ form.description }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="floatingInput" class="form-label">Transaction category</label>
+                    {{ form.category }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="floatingInput" class="form-label">Transaction date</label>
+                    {{ form.transaction_date }}
+                </div>
+
+                <button class="btn btn-primary w-100 py-2" type="submit">Create transaction</button>
+            </form>
+        </div>
     </div>
-</form>
-
 {% endblock %}

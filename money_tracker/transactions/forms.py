@@ -26,6 +26,7 @@ class TransactionForm(forms.ModelForm):
         ),
     )
     description = forms.CharField(
+        required=False,
         widget=forms.Textarea(
             attrs={
                 'class': 'form-control',
@@ -51,7 +52,6 @@ class TransactionForm(forms.ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Select a date',
             },
-
         ),
     )
 
