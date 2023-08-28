@@ -1,10 +1,37 @@
 {% extends 'base.html' %}
 
+{% load static%}
+
+{% block title %}
+    Transaction list &bull;
+{% endblock %}
+
 {% block content %}
-
-
-{% for transaction in transactions %}
-    {{ transaction }}
-{% endfor %}
-
+    <h1 class="text-center">List of transactions of the {{ category }} category</h1>
+    <br>
+    <div style="margin-left: 10px; margin-right: 10px;">
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Transaction amount</th>
+                <th scope="col">Transaction name</th>
+                <th scope="col">Transaction category</th>
+                <th scope="col">View transaction</th>
+                </tr>
+            </thead>
+            {% for transaction in transactions %}
+                <tbody>
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ transaction.amount }}</td>
+                        <td>{{ transaction.name }}</td>
+                        <td>{{ transaction.category }}</td>
+                        <td><a href="{% url 'transaction_detail' id=transaction.id %}">View</a></td>
+                    </tr>
+                </tbody>
+            {% endfor %}
+        </table>
+        <a href="{% url 'transaction_create' %}" class="btn btn-primary w-100 py-2" type="submit">Create new transaction</a>
+    </div>
 {% endblock %}

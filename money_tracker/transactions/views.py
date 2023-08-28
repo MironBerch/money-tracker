@@ -134,13 +134,15 @@ class CategoryTransactionsView(
     template_name = 'transactions/transactions_category.html'
 
     def get(self, request: HttpRequest, slug):
+        category = get_user_category_by_slug(
+            user=request.user,
+            slug=slug,
+        )
         return self.render_to_response(
             context={
+                'category': category,
                 'transactions': get_transactions_by_category(
-                    category=get_user_category_by_slug(
-                        user=request.user,
-                        slug=slug,
-                    ),
+                    category=category,
                 ),
             },
         )
