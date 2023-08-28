@@ -7,6 +7,54 @@ from transactions.models import Transaction
 class TransactionForm(forms.ModelForm):
     """Form for creating new transaction."""
 
+    name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'id': 'floatingInput',
+            },
+        ),
+    )
+    amount = forms.FloatField(
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'id': 'floatingInput',
+                'type': 'number',
+                'step': '0.1',
+            },
+        ),
+    )
+    description = forms.CharField(
+        widget=forms.Textarea(
+            attrs={
+                'class': 'form-control',
+                'id': 'floatingInput',
+                'rows': '3',
+            },
+        ),
+    )
+    category = forms.ModelChoiceField(
+        queryset=None,
+        widget=forms.Select(
+            attrs={
+                'class': 'form-select',
+                'aria-label': 'Select category for transaction',
+                'id': 'floatingInput',
+            },
+        ),
+    )
+    transaction_date = forms.DateField(
+        widget=forms.DateInput(
+            attrs={
+                'type': 'date',
+                'class': 'form-control',
+                'placeholder': 'Select a date',
+            },
+
+        ),
+    )
+
     def __init__(self, user, *args, **kwargs):
         super(TransactionForm, self).__init__(*args, **kwargs)
         self.fields['category'].queryset = Category.objects.filter(user=user)

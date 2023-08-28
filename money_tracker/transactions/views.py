@@ -53,8 +53,8 @@ class TransactionCreateView(
 
     def post(self, request: HttpRequest, *args, **kwargs):
         form = TransactionForm(
-            request.POST or None,
             user=request.user,
+            data=request.POST or None,
         )
         if form.is_valid():
             transaction = form.save(commit=False)
