@@ -1,7 +1,41 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+
+{% load static%}
+
+{% block styles %}
+    <link href="{% static 'transactions/css/transactions.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    Transaction detail view &bull;
+{% endblock %}
 
 {% block content %}
-
-{{ transaction }}
-
+    <div class="d-flex align-items-center py-4 bg-body-tertiary">
+        <div class="form-transaction w-100 m-auto" style="max-width: 540px;">
+            <h1 class="h3 mb-3 fw-normal text-center">Transaction detail view</h1>
+            <div class="mb-3">
+                <label for="floatingInput" class="form-label">Amount: {{ transaction.amount }}</label>
+            </div>
+            <div class="mb-3">
+                <label for="floatingInput" class="form-label">Name: {{ transaction.name }}</label>
+            </div>
+            <div class="mb-3">
+                <label for="floatingInput" class="form-label">Description: {{ transaction.description }}</label>
+            </div>
+            <div class="mb-3">
+                <label for="floatingInput" class="form-label">Category: {{ transaction.category }}</label>
+            </div>
+            <div class="mb-3">
+                <label for="floatingInput" class="form-label">Date of transaction: {{ transaction.transaction_date }}</label>
+            </div>
+            <div class="mb-3">
+                <label for="floatingInput" class="form-label">Cost accounting date: {{ transaction.cost_accounting_date }}</label>
+            </div>
+            <div class="mb-3">
+                <label for="floatingInput" class="form-label">Transaction modified date: {{ transaction.modified_date }}</label>
+            </div>
+            <a class="btn btn-primary w-100 py-2" href="{% url 'transaction_update' transaction.id %}">Update transaction</a>
+        </div>
+    </div>
 {% endblock %}
