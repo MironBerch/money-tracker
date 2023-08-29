@@ -20,8 +20,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # drf
+    'rest_framework',
+
+    # django 3rd party
     'django_filters',
 
+    # local
     'accounts.apps.AccountsConfig',
     'mailings.apps.MailingsConfig',
     'categories.apps.CategoriesConfig',
