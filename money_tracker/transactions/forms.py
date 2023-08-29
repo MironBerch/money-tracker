@@ -75,8 +75,53 @@ class TransactionForm(forms.ModelForm):
 class TransactionFilter(django_filters.FilterSet):
     """Form for filter transaction queryset."""
 
+    name = django_filters.CharFilter(
+        field_name='name',
+        lookup_expr='icontains',
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Search by name',
+            },
+        ),
+    )
+
+    amount__gt = django_filters.NumberFilter(
+        field_name='amount',
+        lookup_expr='gt',
+        label='Amount greater than',
+        widget=forms.NumberInput(
+            attrs={
+                'type': 'number',
+                'step': '0.1',
+                'class': 'form-control',
+                'placeholder': 'Enter amount greater than',
+            },
+        ),
+    )
+    amount__lt = django_filters.NumberFilter(
+        field_name='amount',
+        lookup_expr='lt',
+        label='Amount less than',
+        widget=forms.NumberInput(
+            attrs={
+                'type': 'number',
+                'step': '0.1',
+                'class': 'form-control',
+                'placeholder': 'Enter amount less than',
+            },
+        ),
+    )
     category = django_filters.ModelChoiceFilter(
+        field_name='category',
         queryset=Category.objects.none(),
+        widget=forms.Select(
+            attrs={
+                'class': 'form-select',
+                'aria-label': 'Select category for transaction',
+                'id': 'floatingInput',
+            },
+        ),
     )
 
     def __init__(self, *args, user=None, **kwargs):
@@ -85,4 +130,9 @@ class TransactionFilter(django_filters.FilterSet):
 
     class Meta:
         model = Transaction
-        fields = ('category', )
+        fields = (
+            'category',
+            'amount__gt',
+            'amount__lt',
+            'name',
+        )

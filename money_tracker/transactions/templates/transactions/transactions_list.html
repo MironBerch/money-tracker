@@ -8,12 +8,32 @@
 
 {% block content %}
     <h1 class="text-center">Transaction list</h1>
-    <form method="get">
-        {{ transactions.form.as_p }}
-        <input type="submit" class="btn btn-primary w-25 py-2" />
-    </form>
     <br>
     <div style="margin-left: 10px; margin-right: 10px;">
+        <div style="display: flex; justify-content: center;">
+            <button type="button" class="btn btn-primary w-25 py-2" style="justify-content: center;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Filtering
+            </button>
+        </div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Filtering</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="get">
+                    <div class="modal-body">
+                        {{ transactions.form.as_p }}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
         <table class="table">
             <thead>
                 <tr>
