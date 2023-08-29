@@ -8,6 +8,10 @@
 
 {% block content %}
     <h1 class="text-center">Transaction list</h1>
+    <form method="get">
+        {{ transactions.form.as_p }}
+        <input type="submit" class="btn btn-primary w-25 py-2" />
+    </form>
     <br>
     <div style="margin-left: 10px; margin-right: 10px;">
         <table class="table">
@@ -20,7 +24,7 @@
                 <th scope="col">View transaction</th>
                 </tr>
             </thead>
-            {% for transaction in transactions %}
+            {% for transaction in transactions.qs %}
                 <tbody>
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>

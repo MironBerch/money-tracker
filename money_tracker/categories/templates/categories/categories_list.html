@@ -26,7 +26,7 @@
                         <th scope="row">{{ forloop.counter }}</th>
                         <td>{{ category.name }}</td>
                         <td>{{ category.num_transactions }}</td>
-                        <td><a href="{% url 'category_transactions' slug=category.slug %}">View</a></td>
+                        <td><a href="{% url 'transactions_list' %}?category={{ category.id }}">View</a></td>
                         <td><a href="{% url 'update_category' slug=category.slug %}">Edit</a></td>
                     </tr>
                 </tbody>

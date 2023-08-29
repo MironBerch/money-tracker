@@ -1,3 +1,5 @@
+import django_filters
+
 from django import forms
 
 from categories.models import Category
@@ -68,3 +70,19 @@ class TransactionForm(forms.ModelForm):
             'category',
             'transaction_date',
         )
+
+
+class TransactionFilter(django_filters.FilterSet):
+    """Form for filter transaction queryset."""
+
+    category = django_filters.ModelChoiceFilter(
+        queryset=Category.objects.none(),
+    )
+
+    def __init__(self, *args, user=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.filters['category'].queryset = Category.objects.filter(user=user)
+
+    class Meta:
+        model = Transaction
+        fields = ('category', )

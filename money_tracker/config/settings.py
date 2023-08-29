@@ -20,6 +20,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django_filters',
+
     'accounts.apps.AccountsConfig',
     'mailings.apps.MailingsConfig',
     'categories.apps.CategoriesConfig',

@@ -4,13 +4,8 @@ from django.shortcuts import redirect
 from django.views.generic import View
 from django.views.generic.base import TemplateResponseMixin
 
-from categories.services import get_user_category_by_slug
-from transactions.forms import TransactionForm
-from transactions.services import (
-    get_transactions_by_category,
-    get_user_transaction_by_id,
-    get_user_transactions,
-)
+from transactions.forms import TransactionFilter, TransactionForm
+from transactions.services import get_user_transaction_by_id, get_user_transactions
 
 
 class TransactionsListView(
@@ -23,11 +18,16 @@ class TransactionsListView(
     template_name = 'transactions/transactions_list.html'
 
     def get(self, request: HttpRequest, *args, **kwargs):
+        transactions = TransactionFilter(
+            user=request.user,
+            data=request.GET,
+            queryset=get_user_transactions(
+                user=request.user,
+            ),
+        )
         return self.render_to_response(
             context={
-                'transactions': get_user_transactions(
-                    user=request.user,
-                ),
+                'transactions': transactions,
             },
         )
 
@@ -122,27 +122,3 @@ class TransactionUpdateView(
             return redirect('transactions_list')
 
         return redirect('transactions_list')
-
-
-class CategoryTransactionsView(
-    LoginRequiredMixin,
-    TemplateResponseMixin,
-    View,
-):
-    """View for category transactions."""
-
-    template_name = 'transactions/transactions_category.html'
-
-    def get(self, request: HttpRequest, slug):
-        category = get_user_category_by_slug(
-            user=request.user,
-            slug=slug,
-        )
-        return self.render_to_response(
-            context={
-                'category': category,
-                'transactions': get_transactions_by_category(
-                    category=category,
-                ),
-            },
-        )

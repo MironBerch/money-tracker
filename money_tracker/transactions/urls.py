@@ -1,7 +1,6 @@
 from django.urls import path
 
 from transactions.views import (
-    CategoryTransactionsView,
     TransactionCreateView,
     TransactionDetailView,
     TransactionsListView,
@@ -18,11 +17,6 @@ urlpatterns = [
         route='transactions-create/',
         view=TransactionCreateView.as_view(),
         name='transaction_create',
-    ),
-    path(
-        route='transactions-list/<slug:slug>/',
-        view=CategoryTransactionsView.as_view(),
-        name='category_transactions',
     ),
     path(
         route='transactions-detail/<int:id>/',
