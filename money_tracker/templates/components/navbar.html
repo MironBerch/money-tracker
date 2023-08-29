@@ -30,7 +30,7 @@
             </a>
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 {% if request.user.is_authenticated %}
-                    <li><a href="#" class="nav-link px-2 link-body-emphasis">Transactions</a></li>
+                    <li><a href="{% url 'transactions_list' %}" class="nav-link px-2 link-body-emphasis">Transactions</a></li>
                     <li><a href="{% url 'categories_list' %}" class="nav-link px-2 link-body-emphasis">Categories</a></li>
                 {% endif %}
             </ul>
