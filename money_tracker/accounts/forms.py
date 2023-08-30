@@ -146,7 +146,7 @@ class PasswordResetForm(PasswordResetForm):
             html_email_template_name=None,
     ):
         context['user'] = context['user'].pk
-        send_password_reset_link(
+        send_password_reset_link.delay(
             subject_template_name=subject_template_name,
             email_template_name=email_template_name,
             context=context,
