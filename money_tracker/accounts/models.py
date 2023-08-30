@@ -123,6 +123,11 @@ class SettingsСurrencyChoices(models.TextChoices):
 class Settings(models.Model):
     """Settings for `User`."""
 
+    telegram_id = models.CharField(
+        verbose_name=_('user telegram id'),
+        blank=True,
+        max_length=50,
+    )
     currency = models.CharField(
         verbose_name=_('currency'),
         blank=True,

@@ -212,6 +212,13 @@ class SettingsModelTests(TestCase):
         self.assertEqual(currency_field.max_length, 2)
         self.assertEqual(currency_field.choices, SettingsСurrencyChoices.choices)
 
+    def test_telegram_id_field_params(self):
+        """Test that telegram_id field has all required parameters."""
+        telegram_id_field = Settings._meta.get_field('telegram_id')
+
+        self.assertEqual(telegram_id_field.verbose_name, _('user telegram id'))
+        self.assertTrue(telegram_id_field.blank)
+
     def test_object_name_has_user_object_name(self):
         """Test that Settings object name is set up properly."""
         test_settings: Settings = Settings.objects.get(user=User.objects.first())
