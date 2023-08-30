@@ -162,8 +162,12 @@ class TelegramUserVerifyCode(models.Model):
             MinLengthValidator(4),
         ],
     )
-    settings: Settings = models.OneToOneField(
-        Settings,
+    created_at = models.DateTimeField(
+        verbose_name=_('created at'),
+        auto_now_add=True,
+    )
+    user: User = models.OneToOneField(
+        User,
         related_name='telegram_verify_code',
         on_delete=models.CASCADE,
     )
@@ -173,4 +177,10 @@ class TelegramUserVerifyCode(models.Model):
         verbose_name_plural = _('telegram codes')
 
     def __str__(self):
-        return f'Code for `{self.telegram_code}` for {self.settings.user}'
+        return f'Code for `{self.telegram_code}` for {self.user}'
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        from .tasks import delete_telegram_verify_code
+
+        delete_telegram_verify_code.apply_async((self.id,), countdown=600)
