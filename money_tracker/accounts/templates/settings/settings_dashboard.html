@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% load static%}
+
+{% block styles %}
+    <link href="{% static 'settings/css/settings_dashboard.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    Settings dashboard &bull;
+{% endblock %}
+
+{% block content %}
+    <div class="d-flex align-items-center py-4 bg-body-tertiary">
+        <div class="form-settings w-100 m-auto">
+            <h1 class="h1 mb-3 fw-large text-center">Account settings</h1>
+            <div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <a href="">
+                            <h2 class="h2">Personal info</h2>
+                            <p>Provide personal details and how we can reach you</p>
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <a href="" class="">
+                            <h2 class="h2">Login & security</h2>
+                            <p>Update your password and secure your account</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

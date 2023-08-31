@@ -12,7 +12,7 @@ from django.contrib.auth.views import (
 from django.http import HttpRequest
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import View
+from django.views.generic import TemplateView, View
 from django.views.generic.base import TemplateResponseMixin
 
 from accounts.forms import (
@@ -133,3 +133,12 @@ class ProfileView(
                 'profile_owner': get_user_by_pk(pk=pk),
             },
         )
+
+
+class AccountSettingsDashboardView(
+    LoginRequiredMixin,
+    TemplateView,
+):
+    """View for showing an account dashboard."""
+
+    template_name = 'settings/settings_dashboard.html'

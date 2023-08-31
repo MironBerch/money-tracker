@@ -1,6 +1,7 @@
 from django.urls import path
 
 from accounts.views import (
+    AccountSettingsDashboardView,
     PasswordChangeDoneView,
     PasswordChangeView,
     PasswordResetCompleteView,
@@ -69,5 +70,12 @@ urlpatterns = [
         route='profile/<int:pk>/',
         view=ProfileView.as_view(),
         name='profile_view',
+    ),
+
+    # settings urls
+    path(
+        route='settings/',
+        view=AccountSettingsDashboardView.as_view(),
+        name='settings_dashboard',
     ),
 ]
