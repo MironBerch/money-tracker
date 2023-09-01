@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import (
     LoginView,
@@ -15,12 +16,18 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView, View
 from django.views.generic.base import TemplateResponseMixin
 
+from accounts.constants import (
+    EMAIL_SENT_SUCCESSFULLY_RESPONSE_MESSAGE,
+    PROFILE_INFO_EDIT_SUCCESS_RESPONSE_MESSAGE,
+)
 from accounts.forms import (
     AuthenticationForm,
     PasswordChangeForm,
     PasswordResetForm,
+    ProfileForm,
     SetPasswordForm,
     SignUpForm,
+    UserInfoForm,
 )
 from accounts.mixins import AnonymousUserRequiredMixin
 from accounts.services import get_user_by_pk
@@ -142,3 +149,63 @@ class AccountSettingsDashboardView(
     """View for showing an account dashboard."""
 
     template_name = 'settings/settings_dashboard.html'
+
+
+class PersonalInfoEditView(
+    LoginRequiredMixin,
+    TemplateResponseMixin,
+    View,
+):
+    """View for editing user personal info."""
+
+    template_name = 'settings/user_form.html'
+    profile_form: ProfileForm = None
+    user_info_form: UserInfoForm = None
+
+    def dispatch(self, request: HttpRequest, *args, **kwargs):
+        self.profile_form = ProfileForm(
+            data=request.POST or None,
+            files=request.FILES or None,
+            instance=request.user.profile,
+        )
+        self.user_info_form = UserInfoForm(
+            data=request.POST or None,
+            instance=request.user,
+        )
+        return super(PersonalInfoEditView, self).dispatch(request, *args, **kwargs)
+
+    def get(self, request: HttpRequest, *args, **kwargs):
+        return self.render_to_response(
+            context={
+                'user_info_form': self.user_info_form,
+                'profile_form': self.profile_form,
+            },
+        )
+
+    def post(self, request: HttpRequest, *args, **kwargs):
+        if self.user_info_form.is_valid() and self.profile_form.is_valid():
+            self.user_info_form.save()
+            self.profile_form.save()
+
+            if 'email' in self.user_info_form.changed_data:
+                messages.add_message(
+                    request,
+                    messages.SUCCESS,
+                    EMAIL_SENT_SUCCESSFULLY_RESPONSE_MESSAGE,
+                )
+
+            if self.profile_form.changed_data or self.user_info_form.changed_data:
+                messages.add_message(
+                    request,
+                    messages.SUCCESS,
+                    PROFILE_INFO_EDIT_SUCCESS_RESPONSE_MESSAGE,
+                )
+
+            return redirect('/')
+
+        return self.render_to_response(
+            context={
+                'user_info_form': self.user_info_form,
+                'profile_form': self.profile_form,
+            },
+        )

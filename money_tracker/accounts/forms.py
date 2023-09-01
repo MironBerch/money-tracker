@@ -217,6 +217,36 @@ class PasswordChangeForm(PasswordChangeForm):
 class UserInfoForm(forms.ModelForm):
     """Form for editing user info."""
 
+    email = forms.EmailField(
+        widget=forms.EmailInput(
+            attrs={
+                'class': 'form-control',
+                'id': 'floatingEmail',
+                'placeholder': 'name@example.com',
+            },
+        ),
+    )
+
+    first_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'id': 'floatingName',
+                'placeholder': 'Name',
+            },
+        ),
+    )
+
+    last_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'id': 'floatingSurname',
+                'placeholder': 'Surname',
+            },
+        ),
+    )
+
     class Meta:
         model = User
         fields = (
@@ -241,6 +271,13 @@ class ProfileForm(forms.ModelForm):
                     'class': 'form-control',
                     'placeholder': 'Select a date',
                     'type': 'date',
+                },
+            ),
+            'gender': forms.Select(
+                attrs={
+                    'class': 'form-select',
+                    'aria-label': 'Select category for transaction',
+                    'id': 'floatingInput',
                 },
             ),
         }

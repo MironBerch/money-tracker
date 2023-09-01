@@ -8,6 +8,7 @@ from accounts.views import (
     PasswordResetConfirmView,
     PasswordResetDoneView,
     PasswordResetView,
+    PersonalInfoEditView,
     ProfileView,
     SignInView,
     SignOutView,
@@ -77,5 +78,10 @@ urlpatterns = [
         route='settings/',
         view=AccountSettingsDashboardView.as_view(),
         name='settings_dashboard',
+    ),
+    path(
+        route='settings/personal-info/',
+        view=PersonalInfoEditView.as_view(),
+        name='user_info_edit',
     ),
 ]

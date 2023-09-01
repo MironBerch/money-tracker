@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Personal info &bull;
+{% endblock %}
+
+{% block content %}
+    <div class="">
+        <div class="">
+            <div class="">
+                <span class="">
+                    <a href="{% url 'settings_dashboard' %}">Account</a>
+                </span>
+                <span class="">
+                    Personal info
+                </span>
+            </div>
+            <h1>Personal info</h1>
+        </div>
+
+        <div class="">
+            <div class="">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{ user_info_form }}
+                    {{  profile_form }}
+
+                    <div class="">
+                        <input type="submit" class="button button-secondary" value="Save">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
