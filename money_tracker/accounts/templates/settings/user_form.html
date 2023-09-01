@@ -1,35 +1,28 @@
 {% extends 'base.html' %}
 
+{% load static%}
+
+{% block styles %}
+    <link href="{% static 'settings/css/user_form.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block title %}
     Personal info &bull;
 {% endblock %}
 
 {% block content %}
     <div class="">
-        <div class="">
-            <div class="">
-                <span class="">
-                    <a href="{% url 'settings_dashboard' %}">Account</a>
-                </span>
-                <span class="">
-                    Personal info
-                </span>
-            </div>
-            <h1>Personal info</h1>
+        <div class="text-center">
+            <a href="{% url 'settings_dashboard' %}">Go back to settings</a>
         </div>
-
-        <div class="">
-            <div class="">
-                <form action="" method="POST">
-                    {% csrf_token %}
-                    {{ user_info_form }}
-                    {{  profile_form }}
-
-                    <div class="">
-                        <input type="submit" class="button button-secondary" value="Save">
-                    </div>
-                </form>
-            </div>
+        <h1 class="h1 text-center">Personal info</h1>
+        <div class="d-flex align-items-center py-4 bg-body-tertiary">
+            <form class="form-settings w-100 m-auto" action="" method="POST">
+                {% csrf_token %}
+                {{ user_info_form }}
+                {{  profile_form }}
+                <button class="btn btn-primary w-100 py-2" type="submit">Save</button>
+            </form>
         </div>
     </div>
 {% endblock %}
