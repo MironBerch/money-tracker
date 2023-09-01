@@ -12,7 +12,7 @@ from django.contrib.auth.views import (
 )
 from django.http import HttpRequest
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views.generic import TemplateView, View
 from django.views.generic.base import TemplateResponseMixin
 
@@ -25,6 +25,7 @@ from accounts.forms import (
     PasswordChangeForm,
     PasswordResetForm,
     ProfileForm,
+    ProfileImageForm,
     SetPasswordForm,
     SignUpForm,
     UserInfoForm,
@@ -207,5 +208,42 @@ class PersonalInfoEditView(
             context={
                 'user_info_form': self.user_info_form,
                 'profile_form': self.profile_form,
+            },
+        )
+
+
+class ProfileImageEditView(
+    LoginRequiredMixin,
+    TemplateResponseMixin,
+    View,
+):
+    """View for editing a profile image."""
+
+    template_name = 'profile/edit_image.html'
+
+    profile_image_form: ProfileImageForm = None
+
+    def dispatch(self, request: HttpRequest, *args, **kwargs):
+        self.profile_image_form = ProfileImageForm(
+            data=request.POST or None,
+            files=request.FILES or None,
+            instance=request.user.profile,
+        )
+        return super(ProfileImageEditView, self).dispatch(request, *args, **kwargs)
+
+    def get(self, request: HttpRequest, *args, **kwargs):
+        return self.render_to_response(
+            context={
+                'profile_image_form': self.profile_image_form,
+            },
+        )
+
+    def post(self, request: HttpRequest, *args, **kwargs):
+        if self.profile_image_form.is_valid():
+            self.profile_image_form.save()
+            return redirect(reverse('profile_view', kwargs={'pk': request.user.pk}))
+        return self.render_to_response(
+            context={
+                'profile_image_form': self.profile_image_form,
             },
         )

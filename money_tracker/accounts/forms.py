@@ -312,7 +312,13 @@ class ProfileImageForm(forms.ModelForm):
         model = Profile
         fields = ('profile_image', )
         widgets = {
-            'profile_image': forms.FileInput(),
+            'profile_image': forms.FileInput(
+                attrs={
+                    'class': 'form-control',
+                    'type': 'file',
+                    'id': 'formFile',
+                },
+            ),
         }
 
 
