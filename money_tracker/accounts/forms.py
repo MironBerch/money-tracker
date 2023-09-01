@@ -325,6 +325,17 @@ class ProfileImageForm(forms.ModelForm):
 class ProfileDescriptionForm(forms.ModelForm):
     """Form for editing user description ('about me' section)."""
 
+    description = forms.CharField(
+        required=False,
+        widget=forms.Textarea(
+            attrs={
+                'class': 'form-control',
+                'id': 'formControlTextarea',
+                'rows': '3',
+            },
+        ),
+    )
+
     class Meta:
         model = Profile
         fields = ('description', )

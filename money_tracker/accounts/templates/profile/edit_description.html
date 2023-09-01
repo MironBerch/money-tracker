@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block styles %}
+    <link href="{% static 'settings/css/user_form.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    Profile description &bull;
+{% endblock %}
+
+{% block content %}
+    <div class="">
+        <div class="text-center">
+            <a href="{% url 'profile_view' pk=request.user.pk %}">Go back to profile</a>
+        </div>
+        <h1 class="h1 text-center">Profile description</h1>
+        <div class="d-flex align-items-center py-4 bg-body-tertiary">
+            <form class="form-settings w-100 m-auto" enctype="multipart/form-data" action="" method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="formControlTextarea" class="form-label">Form description:</label>
+                    {{ profile_description_form.description }}
+                </div>
+                <button class="btn btn-primary w-100 py-2" type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

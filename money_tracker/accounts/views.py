@@ -24,6 +24,7 @@ from accounts.forms import (
     AuthenticationForm,
     PasswordChangeForm,
     PasswordResetForm,
+    ProfileDescriptionForm,
     ProfileForm,
     ProfileImageForm,
     SetPasswordForm,
@@ -245,5 +246,41 @@ class ProfileImageEditView(
         return self.render_to_response(
             context={
                 'profile_image_form': self.profile_image_form,
+            },
+        )
+
+
+class ProfileDescriptionEditView(
+    LoginRequiredMixin,
+    TemplateResponseMixin,
+    View,
+):
+    """View for editing profile description."""
+
+    template_name = 'profile/edit_description.html'
+
+    profile_description_form: ProfileDescriptionForm = None
+
+    def dispatch(self, request: HttpRequest, *args, **kwargs):
+        self.profile_description_form = ProfileDescriptionForm(
+            data=request.POST or None,
+            instance=request.user.profile,
+        )
+        return super(ProfileDescriptionEditView, self).dispatch(request, *args, **kwargs)
+
+    def get(self, request: HttpRequest, *args, **kwargs):
+        return self.render_to_response(
+            context={
+                'profile_description_form': self.profile_description_form,
+            },
+        )
+
+    def post(self, request: HttpRequest, *args, **kwargs):
+        if self.profile_description_form.is_valid():
+            self.profile_description_form.save()
+            return redirect(reverse('profile_view', kwargs={'pk': request.user.pk}))
+        return self.render_to_response(
+            context={
+                'profile_description_form': self.profile_description_form,
             },
         )

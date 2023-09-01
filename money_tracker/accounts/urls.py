@@ -9,6 +9,7 @@ from accounts.views import (
     PasswordResetDoneView,
     PasswordResetView,
     PersonalInfoEditView,
+    ProfileDescriptionEditView,
     ProfileImageEditView,
     ProfileView,
     SignInView,
@@ -77,6 +78,11 @@ urlpatterns = [
         route='edit-image/',
         view=ProfileImageEditView.as_view(),
         name='edit_image',
+    ),
+    path(
+        route='edit-description/',
+        view=ProfileDescriptionEditView.as_view(),
+        name='edit_description',
     ),
 
     # settings urls
