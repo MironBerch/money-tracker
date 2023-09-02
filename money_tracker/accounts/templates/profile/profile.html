@@ -1,17 +1,53 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
+{% block styles %}
+    <link href="{% static 'settings/css/user_form.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    {{ profile_owner.full_name }}'s Profile &bull;
+{% endblock %}
+
 {% block content %}
-
-
-{{ profile_owner.full_name }}
-Описание: {{ profile_owner.profile.description }}
-День рождения: {{ profile_owner.profile.date_of_birth }}
-{% if profile_owner.profile.gender == "M" %}
-    Пол: Мужской
-{% elif profile_owner.profile.gender == "F" %}
-    Пол: Женский
-{% endif %}
-Последний вход: {{ profile_owner.last_login }}
-На сайте с: {{ profile_owner.date_joined }}
-
+    <div class="d-flex align-items-center py-4 bg-body-tertiary">
+        <div class="form-settings w-100 m-auto">
+            <div class="text-center">
+                {% if profile_owner.profile.profile_image %}
+                    <div>
+                        <img src="{{ profile_owner.profile.profile_image.url }}" width="256" height="256" class="rounded-circle">
+                    </div>
+                {% else %}
+                    <div>
+                        <svg width="256" height="256" xmlns="http://www.w3.org/2000/svg" class="rounded-circle" viewBox="0 0 32 32" aria-hidden="true" role="presentation" focusable="false" style="fill: currentcolor;"><path d="M16 .7C7.56.7.7 7.56.7 16S7.56 31.3 16 31.3 31.3 24.44 31.3 16 24.44.7 16 .7zm0 28c-4.02 0-7.6-1.88-9.93-4.81a12.43 12.43 0 0 1 6.45-4.4A6.5 6.5 0 0 1 9.5 14a6.5 6.5 0 0 1 13 0 6.51 6.51 0 0 1-3.02 5.5 12.42 12.42 0 0 1 6.45 4.4A12.67 12.67 0 0 1 16 28.7z"></path></svg>
+                    </div>
+                {% endif %}
+                {% if is_profile_of_current_user %}
+                    <a href="{% url 'edit_image' %}" class="">Update photo</a>
+                {% endif %}
+            </div>
+            <div class="">
+                <div class="text-center">
+                    <h1>Hi, I'm {{ profile_owner.first_name }}</h1>
+                    <p class="">Joined in {{ profile_owner.date_joined|date:"Y" }}</p>
+                    {% if is_profile_of_current_user %}
+                        <div class="text-center">    
+                            <a href="{% url 'edit_description' %}">Edit profile</a>
+                        </div>
+                    {% endif %}
+                </div>
+                {% with profile_description=profile_owner.profile.description  %}
+                    {% if profile_description %}
+                        <div class="text-center">
+                            <h2>About</h2>
+                            <div class="">
+                                <p>{{ profile_description }}</p>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

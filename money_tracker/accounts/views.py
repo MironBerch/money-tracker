@@ -132,14 +132,26 @@ class ProfileView(
     TemplateResponseMixin,
     View,
 ):
-    """User profile view."""
+    """View for displaying a user profile."""
 
     template_name = 'profile/profile.html'
 
-    def get(self, request: HttpRequest, pk: int, *args, **kwargs):
+    profile_owner = None
+    is_profile_of_current_user = False
+
+    def dispatch(self, request: HttpRequest, *args, **kwargs):
+        self.profile_owner = get_user_by_pk(pk=kwargs.get('pk'))
+
+        if self.profile_owner == request.user:
+            self.is_profile_of_current_user = True
+
+        return super(ProfileView, self).dispatch(request, *args, **kwargs)
+
+    def get(self, request: HttpRequest, *args, **kwargs):
         return self.render_to_response(
             context={
-                'profile_owner': get_user_by_pk(pk=pk),
+                'profile_owner': self.profile_owner,
+                'is_profile_of_current_user': self.is_profile_of_current_user,
             },
         )
 
