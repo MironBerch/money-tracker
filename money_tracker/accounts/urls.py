@@ -12,6 +12,7 @@ from accounts.views import (
     ProfileDescriptionEditView,
     ProfileImageEditView,
     ProfileView,
+    SecurityDashboardView,
     SignInView,
     SignOutView,
     SignUpView,
@@ -95,5 +96,10 @@ urlpatterns = [
         route='settings/personal-info/',
         view=PersonalInfoEditView.as_view(),
         name='user_info_edit',
+    ),
+    path(
+        route='settings/login-and-security/',
+        view=SecurityDashboardView.as_view(),
+        name='security_dashboard',
     ),
 ]

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load static%}
+
+{% block styles %}
+    <link href="{% static 'settings/css/settings_dashboard.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    Login & Security &bull; Account Settings &bull;
+{% endblock %}
+
+{% block content %}
+    <div class="d-flex align-items-center py-4 bg-body-tertiary">
+        <div class="form-settings w-100 m-auto">
+            <div class="text-center">
+                <a href="{% url 'settings_dashboard' %}">Go back to settings</a>
+            </div>
+            <h1 class="h1 mb-3 fw-large text-center">Login & Security</h1>
+            <div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <a href="{% url 'password_change' %}" class="">
+                            <h2 class="h2">Update password</h2>
+                            <p>Update your old password</p>
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <a href="" class="">
+                            <h2 class="h2">Login in telegram bot</h2>
+                            <p>Get code for login in telegram bot</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

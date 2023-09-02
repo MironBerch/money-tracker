@@ -284,3 +284,12 @@ class ProfileDescriptionEditView(
                 'profile_description_form': self.profile_description_form,
             },
         )
+
+
+class SecurityDashboardView(
+    LoginRequiredMixin,
+    TemplateView,
+):
+    """View for showing a `Login & Security` dashboard."""
+
+    template_name = 'settings/security_dashboard.html'
