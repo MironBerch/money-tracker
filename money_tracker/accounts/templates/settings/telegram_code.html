@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load static%}
+
+{% block styles %}
+    <link href="{% static 'settings/css/settings_dashboard.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    Telegram authentication &bull;
+{% endblock %}
+
+{% block content %}
+    <div class="d-flex align-items-center py-4 bg-body-tertiary">
+        <div class="form-settings w-100 m-auto">
+            <h1 class="h1 mb-3 fw-large text-center">Login in telegram bot</h1>
+            <div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-6 text-center">
+                        <span class="badge bg-secondary" style="font-size: 60px; margin-bottom: 10px;">{{ code.telegram_code }}</span>
+                        <p style="font-size: 24px;">Send your authentication token to telegram bot. Code is valid 10 minutes after creation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -16,6 +16,7 @@ from accounts.views import (
     SignInView,
     SignOutView,
     SignUpView,
+    TelegramCodeView,
 )
 
 urlpatterns = [
@@ -101,5 +102,10 @@ urlpatterns = [
         route='settings/login-and-security/',
         view=SecurityDashboardView.as_view(),
         name='security_dashboard',
+    ),
+    path(
+        route='settings/telegram-login/',
+        view=TelegramCodeView.as_view(),
+        name='telegram_login',
     ),
 ]

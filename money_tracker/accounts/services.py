@@ -1,7 +1,9 @@
+from random import randint
+
 from django.shortcuts import get_object_or_404
 from django.template.loader import get_template, render_to_string
 
-from accounts.models import User
+from accounts.models import TelegramUserVerifyCode, User
 from mailings.services import send_email_with_attachments
 
 
@@ -40,3 +42,28 @@ def send_password_reset_email(
         email_from=from_email,
         alternatives=[(html_content, 'text/html')],
     )
+
+
+def check_that_code_with_this_value_does_not_exist(code: int) -> bool:
+    """Check that code with this value does not exist."""
+    return not TelegramUserVerifyCode.objects.filter(telegram_code=code).exists()
+
+
+def create_unique_telegram_authentication_code(user: User) -> TelegramUserVerifyCode:
+    """Create unique telegram authentication code."""
+    while True:
+        telegram_code = randint(100000, 999999)
+        if check_that_code_with_this_value_does_not_exist(code=telegram_code):
+            return TelegramUserVerifyCode.objects.create(
+                telegram_code=telegram_code,
+                user=user,
+            )
+
+
+def get_telegram_authentication_code(user: User) -> TelegramUserVerifyCode:
+    """Get old or create a new telegram authentication code."""
+    try:
+        code = TelegramUserVerifyCode.objects.get(user=user)
+    except TelegramUserVerifyCode.DoesNotExist:
+        code = create_unique_telegram_authentication_code(user=user)
+    return code

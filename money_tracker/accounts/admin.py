@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.utils.safestring import mark_safe
 
 from accounts.forms import AdminUserChangeForm, SignUpForm
-from accounts.models import Profile, Settings, User
+from accounts.models import Profile, Settings, TelegramUserVerifyCode, User
 
 
 @admin.register(User)
@@ -134,3 +134,12 @@ class SettingsAdmin(admin.ModelAdmin):
         'currency',
     )
     search_fields = ('user__email', )
+
+
+@admin.register(TelegramUserVerifyCode)
+class TelegramUserVerifyCodeAdmin(admin.ModelAdmin):
+    list_display = (
+        'telegram_code',
+        'user',
+        'created_at',
+    )

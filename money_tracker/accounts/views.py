@@ -32,7 +32,7 @@ from accounts.forms import (
     UserInfoForm,
 )
 from accounts.mixins import AnonymousUserRequiredMixin
-from accounts.services import get_user_by_pk
+from accounts.services import get_telegram_authentication_code, get_user_by_pk
 
 
 class SignUpView(
@@ -305,3 +305,20 @@ class SecurityDashboardView(
     """View for showing a `Login & Security` dashboard."""
 
     template_name = 'settings/security_dashboard.html'
+
+
+class TelegramCodeView(
+    LoginRequiredMixin,
+    TemplateResponseMixin,
+    View,
+):
+    """View a authentication code for telegram bot."""
+
+    template_name = 'settings/telegram_code.html'
+
+    def get(self, request: HttpRequest, *args, **kwargs):
+        return self.render_to_response(
+            context={
+                'code': get_telegram_authentication_code(user=request.user),
+            },
+        )

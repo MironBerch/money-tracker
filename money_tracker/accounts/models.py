@@ -154,12 +154,12 @@ class TelegramUserVerifyCode(models.Model):
     """Code for connecting the `User` with the telegram user."""
 
     telegram_code = models.CharField(
-        verbose_name=_('4 digits code'),
+        verbose_name=_('6 digits code'),
         unique=True,
         blank=True,
-        max_length=4,
+        max_length=6,
         validators=[
-            MinLengthValidator(4),
+            MinLengthValidator(6),
         ],
     )
     created_at = models.DateTimeField(
