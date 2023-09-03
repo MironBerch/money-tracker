@@ -1,9 +1,6 @@
-from datetime import timedelta
 from typing import Optional
 
 from celery import shared_task
-
-from django.utils import timezone
 
 from accounts.services import get_user_by_pk, send_password_reset_email
 
@@ -35,12 +32,6 @@ def delete_telegram_verify_code(id):
     from .models import TelegramUserVerifyCode
 
     try:
-        telegram_verify_code = TelegramUserVerifyCode.objects.get(id=id)
-        created_at = telegram_verify_code.created_at
-        expiration_time = created_at + timedelta(minutes=10)
-
-        if timezone.now() <= expiration_time:
-            telegram_verify_code.delete()
-
+        TelegramUserVerifyCode.objects.get(id=id).delete()
     except TelegramUserVerifyCode.DoesNotExist:
         pass
