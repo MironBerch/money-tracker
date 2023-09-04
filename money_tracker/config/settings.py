@@ -162,3 +162,12 @@ EMAIL_HOST_PASSWORD = environ.get('EMAIL_HOST_PASSWORD')
 # Celery
 
 CELERY_BROKER_URL = environ.get('CELERY_BROKER_URL')
+
+# Django Rest Framework
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+}
