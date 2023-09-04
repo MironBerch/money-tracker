@@ -1,5 +1,6 @@
 from django.urls import path
 
+from transactions.api.views import TransactionListAPIView
 from transactions.views import (
     TransactionCreateView,
     TransactionDetailView,
@@ -27,5 +28,11 @@ urlpatterns = [
         route='transactions-update/<int:id>/',
         view=TransactionUpdateView.as_view(),
         name='transaction_update',
+    ),
+
+    # transactions api urls
+    path(
+        route='api/transactions-list/',
+        view=TransactionListAPIView.as_view(),
     ),
 ]
