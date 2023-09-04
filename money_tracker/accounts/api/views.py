@@ -11,6 +11,7 @@ from accounts.permissions import IsNotAuthenticated
 class SignupAPIView(APIView):
     """Signup API view."""
 
+    permission_classes = (IsNotAuthenticated,)
     serializer_class = SignupSerializer
 
     def post(self, request):

@@ -1,5 +1,6 @@
 from django.urls import path
 
+from categories.api.views import CategoryListAPIView
 from categories.views import CategoryCreateView, CategoryListView, CategoryUpdateView
 
 urlpatterns = [
@@ -17,5 +18,11 @@ urlpatterns = [
         route='categories-update/<slug:slug>/',
         view=CategoryUpdateView.as_view(),
         name='update_category',
+    ),
+
+    # categories api urls
+    path(
+        route='api/categories-list/',
+        view=CategoryListAPIView.as_view(),
     ),
 ]
