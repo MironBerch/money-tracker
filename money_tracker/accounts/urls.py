@@ -1,5 +1,6 @@
 from django.urls import path
 
+from accounts.api.views import SigninAPIView, SignoutAPIView, SignupAPIView
 from accounts.views import (
     AccountSettingsDashboardView,
     PasswordChangeDoneView,
@@ -20,6 +21,7 @@ from accounts.views import (
 )
 
 urlpatterns = [
+    # authentication urls
     path(
         route='signup/',
         view=SignUpView.as_view(),
@@ -107,5 +109,19 @@ urlpatterns = [
         route='settings/telegram-login/',
         view=TelegramCodeView.as_view(),
         name='telegram_login',
+    ),
+
+    # authentication api urls
+    path(
+        route='api/signup/',
+        view=SignupAPIView.as_view(),
+    ),
+    path(
+        route='api/signin/',
+        view=SigninAPIView.as_view(),
+    ),
+    path(
+        route='api/signout/',
+        view=SignoutAPIView.as_view(),
     ),
 ]
