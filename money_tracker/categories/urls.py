@@ -1,6 +1,6 @@
 from django.urls import path
 
-from categories.api.views import CategoryListAPIView
+from categories.api.views import CategoryCreateAPIView, CategoryListAPIView
 from categories.views import CategoryCreateView, CategoryListView, CategoryUpdateView
 
 urlpatterns = [
@@ -24,5 +24,9 @@ urlpatterns = [
     path(
         route='api/categories-list/',
         view=CategoryListAPIView.as_view(),
+    ),
+    path(
+        route='api/categories-create/',
+        view=CategoryCreateAPIView.as_view(),
     ),
 ]
