@@ -56,5 +56,18 @@ services:
       - redis
       - server
 
+  bot:
+    restart: always
+    build: .
+    command: >
+      sh -c "cd /app/bot/
+      && python main.py"
+    env_file:
+      - ${ENV}
+    depends_on:
+      - server
+      - db
+      - redis
+
 volumes:
   postgres_volume:
