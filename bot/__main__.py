@@ -1,11 +1,16 @@
 import logging
 
-from telegram.ext import ApplicationBuilder
+from handlers import start
+from telegram.ext import ApplicationBuilder, CommandHandler
 
 from config import TELEGRAM_API_TOKEN
 
+COMMAND_HANDLERS = {
+    'start': start,
+}
+
 logging.basicConfig(
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO,
 )
 logger = logging.getLogger(__name__)
 
@@ -18,6 +23,9 @@ if not TELEGRAM_API_TOKEN:
 
 def main():
     application = ApplicationBuilder().token(TELEGRAM_API_TOKEN).build()
+
+    for command_name, command_handler in COMMAND_HANDLERS.items():
+        application.add_handler(CommandHandler(command_name, command_handler))
 
     application.run_polling()
 

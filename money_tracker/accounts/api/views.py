@@ -4,8 +4,9 @@ from rest_framework.views import APIView
 
 from django.contrib.auth import authenticate, login, logout
 
-from accounts.api.serializers import SigninSerializer, SignupSerializer
+from accounts.api.serializers import SigninSerializer, SignupSerializer, TelegramCodeSerializer
 from accounts.permissions import IsNotAuthenticated
+from accounts.services import get_user_by_telegram_code, set_user_telegram_id
 
 
 class SignupAPIView(APIView):
@@ -64,3 +65,28 @@ class SignoutAPIView(APIView):
     def post(self, request):
         logout(request)
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class TelegramCodeAPIView(APIView):
+    """API view for set telegram id to user settings."""
+
+    serializer_class = TelegramCodeSerializer
+
+    def post(self, request):
+        telegram_code = request.data.get('telegram_code')
+        telegram_id = request.data.get('telegram_id')
+
+        user = get_user_by_telegram_code(telegram_code=telegram_code)
+
+        if user and set_user_telegram_id(user=user, telegram_id=telegram_id):
+            login(request, user)
+            return Response(
+                status=status.HTTP_200_OK,
+            )
+
+        return Response(
+            status=status.HTTP_404_NOT_FOUND,
+            data={
+                'message': 'Invalid telegram code',
+            },
+        )

@@ -3,7 +3,7 @@ from random import randint
 from django.shortcuts import get_object_or_404
 from django.template.loader import get_template, render_to_string
 
-from accounts.models import TelegramUserVerifyCode, User
+from accounts.models import Settings, TelegramUserVerifyCode, User
 from mailings.services import send_email_with_attachments
 
 
@@ -67,3 +67,26 @@ def get_telegram_authentication_code(user: User) -> TelegramUserVerifyCode:
     except TelegramUserVerifyCode.DoesNotExist:
         code = create_unique_telegram_authentication_code(user=user)
     return code
+
+
+def get_user_by_telegram_code(telegram_code: str) -> User | None:
+    """Get user by telegram code or return `None`."""
+    try:
+        return (
+            TelegramUserVerifyCode.objects.get(
+                telegram_code=telegram_code,
+            ).user
+        )
+    except TelegramUserVerifyCode.DoesNotExist:
+        return None
+
+
+def set_user_telegram_id(user: User, telegram_id: str) -> bool:
+    """Set telegram id to user settings."""
+    try:
+        settings = Settings.objects.get(user=user)
+        settings.telegram_id = telegram_id
+        settings.save()
+        return True
+    except Settings.DoesNotExist:
+        return False

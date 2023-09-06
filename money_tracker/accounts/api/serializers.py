@@ -54,3 +54,14 @@ class SigninSerializer(serializers.Serializer):
         required=True,
         write_only=True,
     )
+
+
+class TelegramCodeSerializer(serializers.Serializer):
+    """Signin API view serializer."""
+
+    telegram_id = serializers.CharField(
+        required=True,
+    )
+    telegram_code = serializers.CharField(
+        required=True,
+    )

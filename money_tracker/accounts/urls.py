@@ -1,6 +1,6 @@
 from django.urls import path
 
-from accounts.api.views import SigninAPIView, SignoutAPIView, SignupAPIView
+from accounts.api.views import SigninAPIView, SignoutAPIView, SignupAPIView, TelegramCodeAPIView
 from accounts.views import (
     AccountSettingsDashboardView,
     PasswordChangeDoneView,
@@ -123,5 +123,9 @@ urlpatterns = [
     path(
         route='api/signout/',
         view=SignoutAPIView.as_view(),
+    ),
+    path(
+        route='api/telegram-auth/',
+        view=TelegramCodeAPIView.as_view(),
     ),
 ]

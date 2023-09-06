@@ -61,7 +61,7 @@ services:
     build: .
     command: >
       sh -c "cd /app/bot/
-      && python main.py"
+      && python __main__.py"
     env_file:
       - ${ENV}
     depends_on:
