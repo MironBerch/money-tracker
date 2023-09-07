@@ -1,12 +1,13 @@
 import logging
 
-from handlers import start
+from handlers import start, start_authenticate
 from telegram.ext import ApplicationBuilder, CommandHandler
 
 from config import TELEGRAM_API_TOKEN
 
 COMMAND_HANDLERS = {
     'start': start,
+    'authenticate': start_authenticate,
 }
 
 logging.basicConfig(

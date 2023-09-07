@@ -5,6 +5,7 @@
 - Postgresql
 - Redis
 - Celery
+- python-telegram-bot
 
 
 ## Configuration
@@ -13,6 +14,7 @@ Docker containers:
  2. db
  3. redis
  4. celery
+ 5. bot
 
 docker-compose files:
  1. `docker-compose-local.yml` - for local development
@@ -27,6 +29,7 @@ ENV=.env
 # Project
 SECRET_KEY=
 DEBUG=
+PROJECT_FULL_DOMAIN=<http://127.0.0.1>
 
 
 # SMTP
@@ -41,8 +44,13 @@ POSTGRES_PASSWORD=
 POSTGRES_HOST=<db>
 POSTGRES_PORT=
 
+
 # Celery
 CELERY_BROKER_URL=<redis://redis:6379>
+
+
+# Telegram
+TELEGRAM_API_TOKEN=
 
 ```
 

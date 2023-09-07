@@ -8,3 +8,5 @@ BASE_DIR = Path(__file__).resolve().parent
 TEMPLATES_DIR = BASE_DIR / 'templates'
 
 DATE_FORMAT = '%d.%m.%Y'
+
+PROJECT_FULL_DOMAIN = environ.get('PROJECT_FULL_DOMAIN')
