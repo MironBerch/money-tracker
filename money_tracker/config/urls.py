@@ -1,3 +1,5 @@
+import debug_toolbar
+
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -17,7 +19,12 @@ handler500 = 'main.views.server_error_view'
 
 
 if settings.DEBUG:
+
     urlpatterns += static(
         settings.MEDIA_URL,
         document_root=settings.MEDIA_ROOT,
     )
+
+    urlpatterns += [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ]

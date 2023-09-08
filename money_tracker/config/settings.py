@@ -25,6 +25,7 @@ INSTALLED_APPS = [
 
     # django 3rd party
     'django_filters',
+    'debug_toolbar',
 
     # local
     'accounts.apps.AccountsConfig',
@@ -45,6 +46,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -171,3 +174,14 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ],
 }
+
+# INTERNAL IPS configuration
+
+if DEBUG:
+    from socket import gethostbyname_ex, gethostname
+    hostname, _, ips = gethostbyname_ex(gethostname())
+    INTERNAL_IPS = [ip[: ip.rfind('.')] + '.1' for ip in ips] + ['127.0.0.1', '10.0.2.2']
+else:
+    INTERNAL_IPS = [
+        '127.0.0.1',
+    ]
