@@ -1,7 +1,7 @@
-from .authenticate import start_authenticate
+from .authenticate import authenticate_handler
 from .start import start
 
 __all__ = [
     'start',
-    'start_authenticate',
+    'authenticate_handler',
 ]

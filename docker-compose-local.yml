@@ -19,6 +19,8 @@ services:
     depends_on:
       - db
       - redis
+    networks:
+      - app-network
 
   db:
     image: postgres:14-alpine
@@ -31,6 +33,8 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
     volumes:
         - postgres_volume:/var/lib/postgresql/data/
+    networks:
+      - app-network
 
   redis:
     image: redis:7-alpine
@@ -39,6 +43,8 @@ services:
       - ${ENV}
     ports:
       - "6380:6379"
+    networks:
+      - app-network
 
   celery:
     restart: always
@@ -55,6 +61,8 @@ services:
     depends_on:
       - redis
       - server
+    networks:
+      - app-network
 
   bot:
     restart: always
@@ -68,6 +76,12 @@ services:
       - server
       - db
       - redis
+    networks:
+      - app-network
 
 volumes:
   postgres_volume:
+
+
+networks:
+  app-network:
