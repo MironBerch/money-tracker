@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.sessions.backends.db import SessionStore
 
 from accounts.api.serializers import SigninSerializer, SignupSerializer, TelegramCodeSerializer
 from accounts.permissions import IsNotAuthenticated
@@ -80,8 +81,13 @@ class TelegramCodeAPIView(APIView):
 
         if user and set_user_telegram_id(user=user, telegram_id=telegram_id):
             login(request, user)
+            session = SessionStore(session_key=request.session.session_key)
+
             return Response(
                 status=status.HTTP_200_OK,
+                data={
+                    'session_key': session.session_key,
+                },
             )
 
         return Response(

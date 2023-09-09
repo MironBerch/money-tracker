@@ -2,6 +2,7 @@ import json
 
 import requests
 from handlers.response import send_response
+from services import save_user_session_key
 from telegram import Update
 from telegram.ext import CommandHandler, ContextTypes, ConversationHandler, MessageHandler
 
@@ -41,13 +42,21 @@ async def authenticate(update: Update, context: ContextTypes.DEFAULT_TYPE):
             'Content-Type': 'application/json',
         },
     )
+    status_code = 0
+    if response.status_code == 200:
+        status_code = 200
+        response = response.json()
+        save_user_session_key(
+            user_id=update.message.from_user.id,
+            session_key=response.get('session_key'),
+        )
     await send_response(
         update,
         context,
         response=render_template(
             'authenticate.j2',
             {
-                'status_code': response.status_code,
+                'status_code': status_code,
             },
         ),
     )

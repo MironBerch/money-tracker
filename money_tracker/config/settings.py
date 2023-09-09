@@ -1,5 +1,6 @@
 from os import environ
 from pathlib import Path
+from socket import gethostbyname_ex, gethostname
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -170,18 +171,14 @@ CELERY_BROKER_URL = environ.get('CELERY_BROKER_URL')
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ],
 }
 
 # INTERNAL IPS configuration
+hostname, _, ips = gethostbyname_ex(gethostname())
+INTERNAL_IPS = [ip[: ip.rfind('.')] + '.1' for ip in ips] + ['127.0.0.1', '10.0.2.2']
 
-if DEBUG:
-    from socket import gethostbyname_ex, gethostname
-    hostname, _, ips = gethostbyname_ex(gethostname())
-    INTERNAL_IPS = [ip[: ip.rfind('.')] + '.1' for ip in ips] + ['127.0.0.1', '10.0.2.2']
-else:
-    INTERNAL_IPS = [
-        '127.0.0.1',
-    ]
+# SESSION COOKIE AGE
+
+SESSION_COOKIE_AGE = 777600

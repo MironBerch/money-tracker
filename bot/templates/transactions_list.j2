@@ -1,0 +1,9 @@
+Ваши транзакции:
+<br><br>
+{% for transaction in transactions %}
+    name: {{ transaction.name }}<br>
+    amount: {{ transaction.amount }}<br>
+    category: {{ transaction.category.name }}<br>
+    transaction_date: {{ transaction.transaction_date }}<br>
+    cost_accounting_date: {{ transaction.cost_accounting_date }}<br><br>
+{% endfor %}
