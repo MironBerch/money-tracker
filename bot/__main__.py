@@ -1,6 +1,6 @@
 import logging
 
-from handlers import authenticate_handler, start, transactions_list
+from handlers import authenticate_handler, categories_list, start, transactions_list
 from telegram.ext import ApplicationBuilder, CommandHandler
 
 from config import TELEGRAM_API_TOKEN
@@ -8,6 +8,7 @@ from config import TELEGRAM_API_TOKEN
 COMMAND_HANDLERS = {
     'start': start,
     'transactions_list': transactions_list,
+    'categories_list': categories_list,
 }
 
 logging.basicConfig(

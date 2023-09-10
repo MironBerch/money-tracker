@@ -14,6 +14,7 @@ class CategorySerializer(serializers.ModelSerializer):
     slug = serializers.SlugField(
         required=False,
     )
+    num_transactions = serializers.IntegerField()
 
     class Meta:
         model = Category
@@ -22,4 +23,5 @@ class CategorySerializer(serializers.ModelSerializer):
             'user',
             'name',
             'slug',
+            'num_transactions',
         )

@@ -1,0 +1,6 @@
+Ваши категории:
+<br><br>
+{% for category in categories %}
+    {{ loop.index }}: {{ category.name }}<br>
+    Кол-во транзакций:{{ category.num_transactions }}<br><br>
+{% endfor %}

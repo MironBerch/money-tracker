@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from categories.api.serializers import CategorySerializer
-from categories.services import get_user_categories, user_category_exist
+from categories.services import get_annotated_user_categories, user_category_exist
 from common.utils import create_slug
 
 
@@ -17,7 +17,7 @@ class CategoryListAPIView(ListAPIView):
 
     def get_queryset(self):
         return (
-            get_user_categories(
+            get_annotated_user_categories(
                 user=self.request.user,
             ).order_by('-id')
         )
