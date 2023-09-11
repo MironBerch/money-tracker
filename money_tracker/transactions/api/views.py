@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from transactions.api.serializers import TransactionCreateSerializer, TransactionSerializer
-from transactions.services import get_user_transactions
+from transactions.services import get_user_expenses, get_user_income, get_user_transactions
 
 
 class TransactionListAPIView(ListAPIView):
@@ -41,4 +41,32 @@ class TransactionCreateAPIView(APIView):
         return Response(
             serializer.errors,
             status=status.HTTP_400_BAD_REQUEST,
+        )
+
+
+class ExpenseListAPIView(ListAPIView):
+    """API view displayed list of user expenses."""
+
+    permission_classes = (IsAuthenticated, )
+    serializer_class = TransactionSerializer
+
+    def get_queryset(self):
+        return (
+            get_user_expenses(
+                user=self.request.user,
+            ).order_by('-id')
+        )
+
+
+class IncomeListAPIView(ListAPIView):
+    """API view displayed list of user incomes."""
+
+    permission_classes = (IsAuthenticated, )
+    serializer_class = TransactionSerializer
+
+    def get_queryset(self):
+        return (
+            get_user_income(
+                user=self.request.user,
+            ).order_by('-id')
         )

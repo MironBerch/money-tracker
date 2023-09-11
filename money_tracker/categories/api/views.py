@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from categories.api.serializers import CategorySerializer
+from categories.api.serializers import CategoryListSerializer, CategorySerializer
 from categories.services import get_annotated_user_categories, user_category_exist
 from common.utils import create_slug
 
@@ -13,7 +13,7 @@ class CategoryListAPIView(ListAPIView):
     """API view displayed list of user categories."""
 
     permission_classes = (IsAuthenticated, )
-    serializer_class = CategorySerializer
+    serializer_class = CategoryListSerializer
 
     def get_queryset(self):
         return (

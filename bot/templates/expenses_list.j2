@@ -1,0 +1,9 @@
+Ваши расходы:
+<br><br>
+{% for expense in expenses %}
+    name: {{ expense.name }}<br>
+    amount: {{ expense.amount }}<br>
+    category: {{ expense.category.name }}<br>
+    transaction_date: {{ expense.transaction_date }}<br>
+    cost_accounting_date: {{ expense.cost_accounting_date }}<br><br>
+{% endfor %}

@@ -1,6 +1,11 @@
 from django.urls import path
 
-from transactions.api.views import TransactionCreateAPIView, TransactionListAPIView
+from transactions.api.views import (
+    ExpenseListAPIView,
+    IncomeListAPIView,
+    TransactionCreateAPIView,
+    TransactionListAPIView,
+)
 from transactions.views import (
     TransactionCreateView,
     TransactionDetailView,
@@ -34,6 +39,14 @@ urlpatterns = [
     path(
         route='api/transactions-list/',
         view=TransactionListAPIView.as_view(),
+    ),
+    path(
+        route='api/expenses-list/',
+        view=ExpenseListAPIView.as_view(),
+    ),
+    path(
+        route='api/incomes-list/',
+        view=IncomeListAPIView.as_view(),
     ),
     path(
         route='api/transactions-create/',

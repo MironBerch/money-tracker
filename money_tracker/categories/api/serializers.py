@@ -14,6 +14,27 @@ class CategorySerializer(serializers.ModelSerializer):
     slug = serializers.SlugField(
         required=False,
     )
+
+    class Meta:
+        model = Category
+        fields = (
+            'id',
+            'user',
+            'name',
+            'slug',
+        )
+
+
+class CategoryListSerializer(serializers.ModelSerializer):
+    """Category serializer for list of categories."""
+
+    user = serializers.PrimaryKeyRelatedField(
+        queryset=User.objects.all(),
+        required=False,
+    )
+    slug = serializers.SlugField(
+        required=False,
+    )
     num_transactions = serializers.IntegerField()
 
     class Meta:

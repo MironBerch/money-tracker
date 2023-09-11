@@ -1,0 +1,9 @@
+Ваши доходы:
+<br><br>
+{% for income in incomes %}
+    name: {{ income.name }}<br>
+    amount: {{ income.amount }}<br>
+    category: {{ income.category.name }}<br>
+    transaction_date: {{ income.transaction_date }}<br>
+    cost_accounting_date: {{ income.cost_accounting_date }}<br><br>
+{% endfor %}

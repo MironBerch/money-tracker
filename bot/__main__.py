@@ -1,14 +1,16 @@
 import logging
 
-from handlers import authenticate_handler, categories_list, start, transactions_list
+import handlers
 from telegram.ext import ApplicationBuilder, CommandHandler
 
 from config import TELEGRAM_API_TOKEN
 
 COMMAND_HANDLERS = {
-    'start': start,
-    'transactions_list': transactions_list,
-    'categories_list': categories_list,
+    'start': handlers.start,
+    'transactions_list': handlers.transactions_list,
+    'categories_list': handlers.categories_list,
+    'incomes_list': handlers.incomes_list,
+    'expenses_list': handlers.expenses_list,
 }
 
 logging.basicConfig(
@@ -28,7 +30,7 @@ def main():
 
     for command_name, command_handler in COMMAND_HANDLERS.items():
         application.add_handler(CommandHandler(command_name, command_handler))
-    application.add_handler(authenticate_handler)
+    application.add_handler(handlers.authenticate_handler)
 
     application.run_polling()
 
