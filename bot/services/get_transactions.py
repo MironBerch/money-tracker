@@ -1,4 +1,4 @@
-from services import get_user_session_key, session
+from .session import get_user_session_key, session
 
 
 def get_user_transactions(url, user_id):
