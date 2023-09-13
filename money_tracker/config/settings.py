@@ -4,9 +4,9 @@ from socket import gethostbyname_ex, gethostname
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = environ.get('SECRET_KEY', default='not-secure-key')
+SECRET_KEY = environ.get('SECRET_KEY')
 
-DEBUG = environ.get('DEBUG', default=True)
+DEBUG = int(environ.get('DEBUG'))
 
 ALLOWED_HOSTS = ['*']
 
@@ -49,6 +49,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
