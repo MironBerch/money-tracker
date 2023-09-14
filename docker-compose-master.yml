@@ -10,7 +10,7 @@ services:
       sh -c "cd /home/app/web/money_tracker/
       && python manage.py migrate --noinput
       && python manage.py collectstatic --noinput
-      && gunicorn config.wsgi:application --timeout 300 --bind 0.0.0.0:8000"
+      && gunicorn config.wsgi:application --reload --timeout 300 --bind 0.0.0.0:8000"
     expose:
       - 8000
     volumes:

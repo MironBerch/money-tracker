@@ -82,6 +82,5 @@ services:
 volumes:
   postgres_volume:
 
-
 networks:
   app-network:
