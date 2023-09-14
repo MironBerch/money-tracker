@@ -66,10 +66,8 @@ services:
 
   bot:
     restart: always
-    build: .
-    command: >
-      sh -c "cd /app/bot/
-      && python __main__.py"
+    build: ./bot
+    command: python __main__.py
     env_file:
       - ${ENV}
     depends_on:
