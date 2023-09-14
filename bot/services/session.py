@@ -21,3 +21,10 @@ def get_user_session_key(user_id):
         return session_key.decode('utf-8')
     else:
         return None
+
+
+def get_csrf_token(session):
+    """Return csrf token from session."""
+    response = session.get('http://server:8000/')
+    csrf_token = response.cookies.get('csrftoken')
+    return csrf_token

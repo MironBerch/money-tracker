@@ -31,6 +31,7 @@ def main():
     for command_name, command_handler in COMMAND_HANDLERS.items():
         application.add_handler(CommandHandler(command_name, command_handler))
     application.add_handler(handlers.authenticate_handler)
+    application.add_handler(handlers.category_create_handler)
 
     application.run_polling()
 
