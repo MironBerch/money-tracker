@@ -14,7 +14,6 @@ START_AUTH, AUTH = range(2)
 
 
 async def start_authenticate(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
     await send_response(
         update,
         context,
@@ -29,7 +28,6 @@ async def start_authenticate(update: Update, context: ContextTypes.DEFAULT_TYPE)
 
 
 async def authenticate(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
     response = requests.post(
         url='http://server:8000' + '/api/telegram-auth/',
         data=json.dumps(
