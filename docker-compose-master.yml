@@ -16,8 +16,6 @@ services:
     volumes:
       - static_volume:/home/app/web/money_tracker/static
       - media_volume:/home/app/web/money_tracker/media
-    ports:
-      - 8000:8000
     env_file:
       - ${ENV}
     depends_on:
@@ -89,7 +87,7 @@ services:
       - static_volume:/home/app/web/money_tracker/static
       - media_volume:/home/app/web/money_tracker/media
     ports:
-      - 1337:80
+      - 80:80
     depends_on:
       - server
     networks:
